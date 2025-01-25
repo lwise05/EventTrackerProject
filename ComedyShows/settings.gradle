@@ -1,0 +1,3 @@
+rootProject.name = 'ComedyShows'
+
+includeFlat 'JPAComedyEvent'
