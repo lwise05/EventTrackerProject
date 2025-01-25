@@ -22,7 +22,7 @@ DROP TABLE IF EXISTS `comedy_event` ;
 
 CREATE TABLE IF NOT EXISTS `comedy_event` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `performance_date` DATETIME NULL,
+  `performance_date` DATE NULL,
   `rating` INT NOT NULL,
   `venue_id` INT NULL,
   `user_id` INT NULL,
