@@ -1,6 +1,7 @@
 package com.skilldistillery.comedyevent.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,14 +22,17 @@ public class VenueServiceImpl implements VenueService{
 
 	@Override
 	public Venue findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Venue> venueOpt = venueRepo.findById(id);
+		Venue venue = null;
+		if(venueOpt.isPresent()) {
+			venue = venueOpt.get();
+		}
+		return venue;
 	}
 
 	@Override
 	public Venue create(Venue venue) {
-		// TODO Auto-generated method stub
-		return null;
+		return venueRepo.saveAndFlush(venue);
 	}
 
 	@Override
