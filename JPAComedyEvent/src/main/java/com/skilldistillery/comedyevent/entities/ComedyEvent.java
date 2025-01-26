@@ -2,6 +2,8 @@ package com.skilldistillery.comedyevent.entities;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,9 +29,11 @@ public class ComedyEvent {
 	@Column(name = "ticket_price")
 	private double ticketPrice;
 	
+	
 	@ManyToOne
 	@JoinColumn(name = "comedian_id")
 	private Comedian comedian;
+	
 	
 	@ManyToOne
 	@JoinColumn(name = "venue_id")

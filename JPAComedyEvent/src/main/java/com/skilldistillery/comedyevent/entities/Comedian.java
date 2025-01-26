@@ -2,6 +2,8 @@ package com.skilldistillery.comedyevent.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,10 +31,12 @@ public class Comedian {
 	
 	private String notes;
 	
+	
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy ="comedian")
 	private List<ComedyEvent> events;
 

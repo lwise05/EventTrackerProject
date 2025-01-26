@@ -1,6 +1,7 @@
 package com.skilldistillery.comedyevent.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,12 @@ public class ComedyEventServiceImpl implements ComedyEventService{
 
 	@Override
 	public ComedyEvent findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<ComedyEvent> eventOpt = comedyRepo.findById(id);
+		ComedyEvent event = null;
+		if(eventOpt.isPresent()) {
+			event = eventOpt.get();
+		}
+		return event;
 	}
 
 	@Override
