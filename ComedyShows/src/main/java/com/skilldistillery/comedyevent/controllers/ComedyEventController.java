@@ -90,7 +90,30 @@ public class ComedyEventController {
 			res.setStatus(HttpServletResponse.SC_BAD_REQUEST); //400
 		}
 	}
+	
+//	@GetMapping("comedyEvents/search/{name}")
+//	public List<ComedyEvent> findByComedian(@PathVariable("name") String name, HttpServletResponse res) {
+//		
+//		List<ComedyEvent>  events = eventService.findByComedian(name);
+//		
+//		if(events != null) {
+//			res.setStatus(HttpServletResponse.SC_OK); //200
+//		}
+//			res.setStatus(HttpServletResponse.SC_NOT_FOUND); //404	
+//		return events;
+//	}
+	
+	@GetMapping("comedyEvents/search/{rating}")
+	public List<ComedyEvent> findByRating(@PathVariable("rating") int rating, HttpServletResponse res) {
 		
+		List<ComedyEvent>  events = eventService.findByRating(rating);
+		
+		if(events != null) {
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND); //404
+		}
+	
+		return events;
+	}
 	
 	
 }

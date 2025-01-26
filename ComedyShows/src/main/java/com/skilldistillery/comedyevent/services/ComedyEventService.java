@@ -12,4 +12,8 @@ public interface ComedyEventService {
 	ComedyEvent update(int id, ComedyEvent event);
 	boolean deletedById (int id);
 	
+	List<ComedyEvent> findByComedian(String name);
+	List<ComedyEvent> findByRating(int rating);
+	List<ComedyEvent> findByVenue(String venue);
+	
 }

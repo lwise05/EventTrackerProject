@@ -64,4 +64,22 @@ public class ComedyEventServiceImpl implements ComedyEventService{
 		return deleted;
 	}
 
+	@Override
+	public List<ComedyEvent> findByComedian(String name) {
+		List<ComedyEvent> events = comedyRepo.findByComedian_FirstNameContainingOrComedian_LastNameContaining(name, name);
+		return events;
+	}
+
+	@Override
+	public List<ComedyEvent> findByRating(int rating) {
+		List<ComedyEvent> events = comedyRepo.findByRatingOrderByRatingDesc(rating);
+		return events;
+	}
+
+	@Override
+	public List<ComedyEvent> findByVenue(String venue) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
