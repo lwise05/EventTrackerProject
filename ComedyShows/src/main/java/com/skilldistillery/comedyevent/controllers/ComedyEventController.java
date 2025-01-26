@@ -3,9 +3,11 @@ package com.skilldistillery.comedyevent.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,12 +40,12 @@ public class ComedyEventController {
 		if(event == null) {
 			res.setStatus(HttpServletResponse.SC_NOT_FOUND); //404
 		}
-		res.setStatus(HttpServletResponse.SC_OK);
+		
 		return event;
 	}
 	
 	@PostMapping({"comedyEvents","comedyEvents/"})
-	public ComedyEvent createComedyEvent(@RequestBody ComedyEvent event, HttpServletResponse res, HttpServletRequest requ) {
+	public ComedyEvent createEvent(@RequestBody ComedyEvent event, HttpServletResponse res, HttpServletRequest requ) {
 		
 		try {
 			eventService.create(event);
@@ -57,7 +59,38 @@ public class ComedyEventController {
 		
 		return event;
 	}
-	
-	
+
+	@PutMapping("comedyEvents/{comedyEventId}")
+	public ComedyEvent updateEvent(@PathVariable("comedyEventId") int comedyEventId, @RequestBody ComedyEvent event, HttpServletResponse res) {
+		
+		try {
+			event = eventService.update(comedyEventId, event);
+			res.setStatus(HttpServletResponse.SC_OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			res.setStatus(HttpServletResponse.SC_BAD_REQUEST); //400
+		}
+		
+	return event;
 	
 	}
+	
+	@DeleteMapping("comedyEvents/{comedyEventId}")
+	public void deleteEvent(@PathVariable("comedyEventId") int comedyEventId, HttpServletResponse res) {
+		
+		try {
+			if (eventService.deletedById(comedyEventId)) {
+			res.setStatus(HttpServletResponse.SC_OK); //200
+			}
+			else {
+				res.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			res.setStatus(HttpServletResponse.SC_BAD_REQUEST); //400
+		}
+	}
+		
+	
+	
+}

@@ -37,14 +37,31 @@ public class ComedyEventServiceImpl implements ComedyEventService{
 
 	@Override
 	public ComedyEvent update(int id, ComedyEvent event) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<ComedyEvent> eventOpt = comedyRepo.findById(id);
+		ComedyEvent updatedEvent = null;
+		
+		if(eventOpt.isPresent()) {
+			updatedEvent = eventOpt.get();
+			updatedEvent.setPerformanceDate(event.getPerformanceDate());
+			updatedEvent.setRating(event.getRating());
+			updatedEvent.setTicketPrice(event.getTicketPrice());
+			updatedEvent.setVenue(event.getVenue());
+			updatedEvent.setComedian(event.getComedian());
+			comedyRepo.saveAndFlush(updatedEvent);
+		}
+		
+		return updatedEvent;
 	}
 
 	@Override
 	public boolean deletedById(int id) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean deleted = false;
+		Optional<ComedyEvent> eventOpt = comedyRepo.findById(id);
+		if(eventOpt.isPresent()) {
+			comedyRepo.delete(eventOpt.get());
+			deleted = true;
+		}
+		return deleted;
 	}
 
 }
