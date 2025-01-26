@@ -50,8 +50,14 @@ public class CategoryServiceImpl implements CategoryService{
 
 	@Override
 	public boolean deletedById(int id) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean deleted = false;
+		Optional<Category> categoryOpt = categoryRepo.findById(id);
+		if(categoryOpt.isPresent()) {
+			Category category = categoryOpt.get();
+			categoryRepo.delete(category);
+			deleted = true;
+		}
+		return deleted;
 	}
 
 

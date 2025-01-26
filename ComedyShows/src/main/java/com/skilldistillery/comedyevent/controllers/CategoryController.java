@@ -3,6 +3,7 @@ package com.skilldistillery.comedyevent.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -75,7 +76,22 @@ public class CategoryController {
 		return category;
 	}
 	
-	
+	@DeleteMapping("categories/{categoryId}")
+	public void deleteCategory(@PathVariable("categoryId") int categoryId, HttpServletResponse res) {
+		
+		try {
+			if(categoryService.deletedById(categoryId)){
+				res.setStatus(204);
+			}
+			else {
+				res.setStatus(404);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			res.setStatus(400);
+		}
+		
+	}
 	
 	
 	}
