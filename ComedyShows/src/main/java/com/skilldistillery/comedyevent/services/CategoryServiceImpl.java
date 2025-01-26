@@ -32,15 +32,20 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 
 	@Override
-	public Category create(Category cateogry) {
-		// TODO Auto-generated method stub
-		return null;
+	public Category create(Category category) {
+		return categoryRepo.saveAndFlush(category);
 	}
 
 	@Override
-	public Category update(int id, Category ategory) {
-		// TODO Auto-generated method stub
-		return null;
+	public Category update(int id, Category category) {
+		Optional<Category> categoryOpt = categoryRepo.findById(id);
+		Category updatedCat = null;
+		if(categoryOpt.isPresent()) {
+			 updatedCat = categoryOpt.get();
+			updatedCat.setName(category.getName());
+			categoryRepo.saveAndFlush(updatedCat);
+		}
+		return updatedCat;
 	}
 
 	@Override

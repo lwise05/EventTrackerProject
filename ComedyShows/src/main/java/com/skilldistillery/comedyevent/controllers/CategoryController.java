@@ -6,11 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.comedyevent.entities.Category;
-import com.skilldistillery.comedyevent.entities.ComedyEvent;
 import com.skilldistillery.comedyevent.services.CategoryService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -42,22 +43,39 @@ public class CategoryController {
 		return category;
 	}
 	
-//	@PostMapping({"comedyEvents","comedyEvents/"})
-//	public ComedyEvent create(ComedyEvent event, HttpServletResponse res, HttpServletRequest requ) {
-//		
-//		try {
-//			eventService.create(event);
-//			res.setStatus(HttpServletResponse.SC_CREATED);
-//			res.setHeader("Location", requ.getRequestURL().append("/").append(event.getId()).toString());
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			event = null;
-//			res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-//		}
-//		
-//		return event;
-//	}
-//	
+	@PostMapping({"categories","categories/"})
+	public Category createCategory(@RequestBody Category category, HttpServletResponse res, HttpServletRequest requ) {
+		
+		try {
+			categoryService.create(category);
+			res.setStatus(HttpServletResponse.SC_CREATED);
+			res.setHeader("Location", requ.getRequestURL().append("/").append(category.getId()).toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			category = null;
+			res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+		}
+		
+		return category;
+	}
+
+	
+	@PutMapping("categories/{categoryId}")
+	public Category updateCategory(@PathVariable("categoryId") int categoryId, @RequestBody Category category, HttpServletResponse res, HttpServletRequest requ) {
+		
+	
+		try {
+			 category = categoryService.update(categoryId, category);
+			res.setStatus(201);
+//			res.setHeader("Location", requ.getRequestURL().append("/").append(category.getId()).toString());
+			} catch(Exception e) {
+				e.printStackTrace();
+				res.setStatus(400);
+			}
+		return category;
+	}
+	
+	
 	
 	
 	}
