@@ -5,12 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.comedyevent.entities.ComedyEvent;
 import com.skilldistillery.comedyevent.services.ComedyEventService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
@@ -38,5 +40,23 @@ public class ComedyEventController {
 		res.setStatus(HttpServletResponse.SC_OK);
 		return event;
 	}
+	
+	@PostMapping({"comedyEvents","comedyEvents/"})
+	public ComedyEvent create(ComedyEvent event, HttpServletResponse res, HttpServletRequest requ) {
+		
+		try {
+			eventService.create(event);
+			res.setStatus(HttpServletResponse.SC_CREATED);
+			res.setHeader("Location", requ.getRequestURL().append("/").append(event.getId()).toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			event = null;
+			res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+		}
+		
+		return event;
+	}
+	
+	
 	
 	}

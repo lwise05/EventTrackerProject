@@ -17,7 +17,6 @@ public class ComedyEventServiceImpl implements ComedyEventService{
 	
 	@Override
 	public List<ComedyEvent> findAll() {
-	
 		return comedyRepo.findAll();
 	}
 
@@ -33,8 +32,7 @@ public class ComedyEventServiceImpl implements ComedyEventService{
 
 	@Override
 	public ComedyEvent create(ComedyEvent event) {
-		// TODO Auto-generated method stub
-		return null;
+		return comedyRepo.saveAndFlush(event);
 	}
 
 	@Override
