@@ -40,7 +40,7 @@ public class CategoryController {
 		if(category == null) {
 			res.setStatus(HttpServletResponse.SC_NOT_FOUND); //404
 		}
-		res.setStatus(HttpServletResponse.SC_OK);
+		res.setStatus(HttpServletResponse.SC_OK); //200
 		return category;
 	}
 	
@@ -49,12 +49,12 @@ public class CategoryController {
 		
 		try {
 			categoryService.create(category);
-			res.setStatus(HttpServletResponse.SC_CREATED);
+			res.setStatus(HttpServletResponse.SC_CREATED); //201
 			res.setHeader("Location", requ.getRequestURL().append("/").append(category.getId()).toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 			category = null;
-			res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			res.setStatus(HttpServletResponse.SC_BAD_REQUEST); //400
 		}
 		
 		return category;
@@ -67,11 +67,11 @@ public class CategoryController {
 	
 		try {
 			 category = categoryService.update(categoryId, category);
-			res.setStatus(201);
+			res.setStatus(HttpServletResponse.SC_OK); // 200
 //			res.setHeader("Location", requ.getRequestURL().append("/").append(category.getId()).toString());
 			} catch(Exception e) {
 				e.printStackTrace();
-				res.setStatus(400);
+				res.setStatus(HttpServletResponse.SC_BAD_REQUEST); //400
 			}
 		return category;
 	}
@@ -81,14 +81,14 @@ public class CategoryController {
 		
 		try {
 			if(categoryService.deletedById(categoryId)){
-				res.setStatus(204);
+				res.setStatus(HttpServletResponse.SC_OK); //200
 			}
 			else {
-				res.setStatus(404);
+				res.setStatus(HttpServletResponse.SC_NOT_FOUND); //404
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			res.setStatus(400);
+			res.setStatus(HttpServletResponse.SC_BAD_REQUEST); //400
 		}
 		
 	}

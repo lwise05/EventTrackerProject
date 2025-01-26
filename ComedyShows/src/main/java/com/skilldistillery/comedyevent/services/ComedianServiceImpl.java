@@ -35,30 +35,35 @@ public class ComedianServiceImpl implements ComedianService{
 	public Comedian create(Comedian comedian) {
 		return comedianRepo.saveAndFlush(comedian);
 	}
-//
-//	@Override
-//	public Category update(int id, Category category) {
-//		Optional<Category> categoryOpt = categoryRepo.findById(id);
-//		Category updatedCat = null;
-//		if(categoryOpt.isPresent()) {
-//			 updatedCat = categoryOpt.get();
-//			updatedCat.setName(category.getName());
-//			categoryRepo.saveAndFlush(updatedCat);
-//		}
-//		return updatedCat;
-//	}
-//
-//	@Override
-//	public boolean deletedById(int id) {
-//		boolean deleted = false;
-//		Optional<Category> categoryOpt = categoryRepo.findById(id);
-//		if(categoryOpt.isPresent()) {
-//			Category category = categoryOpt.get();
-//			categoryRepo.delete(category);
-//			deleted = true;
-//		}
-//		return deleted;
-//	}
+
+	@Override
+	public Comedian update(int id, Comedian comedian) {
+		Optional<Comedian> comedianOpt = comedianRepo.findById(id);
+		Comedian updatedComedian = null;
+		if(comedianOpt.isPresent()) {
+			updatedComedian = comedianOpt.get();
+			updatedComedian.setFirstName(comedian.getFirstName());
+			updatedComedian.setLastName(comedian.getLastName());
+			updatedComedian.setImageUrl(comedian.getImageUrl());
+			updatedComedian.setNotes(comedian.getNotes());
+			updatedComedian.setCategory(comedian.getCategory());
+			updatedComedian.setEvents(comedian.getEvents());
+			comedianRepo.saveAndFlush(updatedComedian);
+		}
+		return updatedComedian;
+	}
+
+	@Override
+	public boolean deletedById(int id) {
+		boolean deleted = false;
+		Optional<Comedian> comedianOpt = comedianRepo.findById(id);
+		if(comedianOpt.isPresent()) {
+			Comedian comedian = comedianOpt.get();
+			comedianRepo.delete(comedian);
+			deleted = true;
+		}
+		return deleted;
+	}
 
 
 	

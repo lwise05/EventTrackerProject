@@ -9,7 +9,7 @@ public interface ComedianService {
 	List<Comedian> findAll();
 	Comedian findById(int id);
 	Comedian create(Comedian comedian);
-//	Comedian update(int id, Comedian comedian);
-//	boolean deletedById (int id);
+	Comedian update(int id, Comedian comedian);
+	boolean deletedById (int id);
 	
 }
