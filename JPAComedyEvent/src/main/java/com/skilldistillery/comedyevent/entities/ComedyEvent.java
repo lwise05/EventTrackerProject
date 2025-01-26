@@ -1,9 +1,14 @@
 package com.skilldistillery.comedyevent.entities;
 
+import java.time.LocalDate;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -14,7 +19,22 @@ public class ComedyEvent {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@Column(name = "performance_date")
+	private LocalDate performanceDate;
+	
 	private int rating;
+	
+	@Column(name = "ticket_price")
+	private double ticketPrice;
+	
+	@ManyToOne
+	@JoinColumn(name = "comedian_id")
+	private Comedian comedian;
+	
+	@ManyToOne
+	@JoinColumn(name = "venue_id")
+	private Venue venue;
+	
 
 	public ComedyEvent() {
 		super();
@@ -34,6 +54,43 @@ public class ComedyEvent {
 
 	public void setRating(int rating) {
 		this.rating = rating;
+	}
+
+	
+	public LocalDate getPerformanceDate() {
+		return performanceDate;
+	}
+
+	public void setPerformanceDate(LocalDate performanceDate) {
+		this.performanceDate = performanceDate;
+	}
+
+	public double getTicketPrice() {
+		return ticketPrice;
+	}
+
+	public void setTicketPrice(double ticketPrice) {
+		this.ticketPrice = ticketPrice;
+	}
+	
+	
+
+	public Comedian getComedian() {
+		return comedian;
+	}
+
+	public void setComedian(Comedian comedian) {
+		this.comedian = comedian;
+	}
+
+	
+	
+	public Venue getVenue() {
+		return venue;
+	}
+
+	public void setVenue(Venue venue) {
+		this.venue = venue;
 	}
 
 	@Override

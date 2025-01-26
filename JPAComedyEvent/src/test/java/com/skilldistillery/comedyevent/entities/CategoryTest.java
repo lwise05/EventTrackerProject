@@ -2,6 +2,7 @@ package com.skilldistillery.comedyevent.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -13,11 +14,11 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
-class ComedyEventTest {
+class CategoryTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private ComedyEvent event;
+	private Category category;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -32,29 +33,24 @@ class ComedyEventTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		event = em.find(ComedyEvent.class, 1);
+		category = em.find(Category.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
-		event = null;
+		category = null;
 		em.close();
 	}
 
 	@Test
 	void test_entity_mapping() {
-		assertNotNull(event);
-		assertEquals(5, event.getRating());
+		assertNotNull(category);
+		assertEquals("story telling", category.getName());
+	}
+	
+	@Test
+	void test_OneToMany_Comedian_mapping() {
+		assertTrue(category.getComedians().size()>0);
 	}
 
-	@Test
-	void test_ManyToOne_Comedian_mapping() {
-		assertEquals("Beth", event.getComedian().getFirstName());
-	}
-	
-	@Test
-	void test_ManyToOne_Venue_mapping() {
-		assertEquals("Comedy Works", event.getVenue().getName());
-	}
-	
 }
