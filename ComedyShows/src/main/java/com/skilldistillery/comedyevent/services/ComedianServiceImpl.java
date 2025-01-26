@@ -21,20 +21,20 @@ public class ComedianServiceImpl implements ComedianService{
 		return comedianRepo.findAll();
 	}
 
-//	@Override
-//	public Comedian findById(int id) {
-//		Optional<Category> categoryOpt = categoryRepo.findById(id);
-//		Category category = null;
-//		if(categoryOpt.isPresent()) {
-//			category = categoryOpt.get();
-//		}
-//		return category;
-//	}
-//
-//	@Override
-//	public Comedian create(Comedian category) {
-//		return categoryRepo.saveAndFlush(category);
-//	}
+	@Override
+	public Comedian findById(int id) {
+		Optional<Comedian> comedianOpt = comedianRepo.findById(id);
+		Comedian comedian = null;
+		if(comedianOpt.isPresent()) {
+			comedian = comedianOpt.get();
+		}
+		return comedian;
+	}
+
+	@Override
+	public Comedian create(Comedian comedian) {
+		return comedianRepo.saveAndFlush(comedian);
+	}
 //
 //	@Override
 //	public Category update(int id, Category category) {
