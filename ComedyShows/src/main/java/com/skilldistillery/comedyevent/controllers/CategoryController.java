@@ -40,7 +40,7 @@ public class CategoryController {
 		if(category == null) {
 			res.setStatus(HttpServletResponse.SC_NOT_FOUND); //404
 		}
-		res.setStatus(HttpServletResponse.SC_OK); //200
+	
 		return category;
 	}
 	

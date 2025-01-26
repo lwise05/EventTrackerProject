@@ -37,14 +37,32 @@ public class VenueServiceImpl implements VenueService{
 
 	@Override
 	public Venue update(int id, Venue venue) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Venue> venueOpt = venueRepo.findById(id);
+		Venue updatedVenue = null;
+		if(venueOpt.isPresent()) {
+			updatedVenue = venueOpt.get();
+			updatedVenue.setName(venue.getName());	
+			updatedVenue.setImageUrl(venue.getImageUrl());	
+			updatedVenue.setStreet(venue.getStreet());	
+			updatedVenue.setStreet2(venue.getStreet2());	
+			updatedVenue.setCity(venue.getCity());	
+			updatedVenue.setState(venue.getState());	
+			updatedVenue.setPostalCode(venue.getPostalCode());
+			updatedVenue.setCountry(venue.getCountry());
+			venueRepo.saveAndFlush(updatedVenue);
+		}
+		return updatedVenue;
 	}
 
 	@Override
 	public boolean deletedById(int id) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean deleted = false;
+		Optional<Venue> venueOpt = venueRepo.findById(id);
+		if(venueOpt.isPresent()) {
+			venueRepo.delete(venueOpt.get());
+			deleted = true;
+		}
+		return deleted;
 	}
 
 	
