@@ -8,26 +8,26 @@ This is a JPA project that will develop to be a site to track comedy shows with 
 ### Comedy Event
 | HTTP Method |               Endpoint             		 | Description                           |
 |-------------|------------------------------------------|---------------------------------------|
-|    Get      |  'api/comedyEvents'                      | Find all comedy events                |
-|    Get      |  api/comedyEvents/{comedyEventId}        | Find comedy event by Id               |    
-|    Post     |  api/comedyEvents                        | Create comedy event                   |   
-|    Put      |  api/comedyEvents/{comedyEventId}        | Update a comedy event                 | 
-|   Delete    |  api/comedyEvents/{comedyEventId}        | Delete a comedy event                 | 
-|    Get      |  api/comedyEvents/search/comedian/{name} | Find comedy events by comedian name   | 
-|    Get      |  api/comedyEvents/search/rating/{rating} | Find comedy events by rating          | 
-|    Get      |  api/comedyEvents/search/venue/{venue}   | Find comedy events by venue           | 
+|    Get      |  `/api/comedyEvents`                       | Find all comedy events                |
+|    Get      |  `/api/comedyEvents/{comedyEventId}`        | Find comedy event by Id               |    
+|    Post     |  `/api/comedyEvents`                       | Create comedy event                   |   
+|    Put      |  `/api/comedyEvents/{comedyEventId}`       | Update a comedy event                 | 
+|   Delete    |  `/api/comedyEvents/{comedyEventId}`      | Delete a comedy event                 | 
+|    Get      |  `/api/comedyEvents/search/comedian/{name}` | Find comedy events by comedian name   | 
+|    Get      |  `/api/comedyEvents/search/rating/{rating}` | Find comedy events by rating          | 
+|    Get      |  `/api/comedyEvents/search/venue/{venue}`  | Find comedy events by venue           | 
 
 ### Venue
 | HTTP Method |               Endpoint                   | Description                           |
 |-------------|------------------------------------------|---------------------------------------|
-|    Get      |  api/venues                              | Find all venues                       |
-|    Get      |  api/venues/{venueId}                    | Find veneus by Id                     |    
-|    Post     |  api/venues                              | Create venue                          |   
-|    Put      |  api/venues/{venueId}                  	 | Update a venue                        | 
-|   Delete    |  api/venues/{venueId}                    | Delete a venue                        | 
-|    Get      |  api/venues/search/name/{name}           | Find venue by name                    | 
-|    Get      |  api/venues/search/city/{city}           | Find venue by city                    | 
-|    Get      |  api/venues/search/state/{state}         | Find venue by state                   | 
+|    Get      |  `/api/venues`                             | Find all venues                       |
+|    Get      |  `/api/venues/{venueId}`                    | Find veneus by Id                     |    
+|    Post     |  `/api/venues`                           | Create venue                          |   
+|    Put      |  `/api/venues/{venueId}`                  	 | Update a venue                        | 
+|   Delete    |  `/api/venues/{venueId}`                    | Delete a venue                        | 
+|    Get      |  `/api/venues/search/name/{name}`           | Find venue by name                    | 
+|    Get      |  `/api/venues/search/city/{city}`          | Find venue by city                    | 
+|    Get      |  `/api/venues/search/state/{state}`         | Find venue by state                   | 
 
 ### Comedian
 | HTTP Method |               Endpoint                   | Description                           |
