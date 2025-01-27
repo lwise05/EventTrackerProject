@@ -12,4 +12,8 @@ public interface VenueService {
 	Venue update(int id, Venue venue);
 	boolean deletedById (int id);
 	
+	List<Venue> findByName (String name);
+	List<Venue> findByCity (String city);
+	List<Venue> findByState (String name);
+	
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.comedyevent.entities.Comedian;
 import com.skilldistillery.comedyevent.entities.Venue;
 import com.skilldistillery.comedyevent.services.VenueService;
 
@@ -87,6 +88,40 @@ public class VenueController {
 			e.printStackTrace();
 			res.setStatus(HttpServletResponse.SC_BAD_REQUEST); //400
 		}
+	}
+	
+	@GetMapping("venues/search/name/{name}")
+	public List<Venue> findByName(@PathVariable("name") String name, HttpServletResponse res){
+		
+		List<Venue> venues = venueService.findByName(name);
+		
+		if(venues == null) {
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND); //404
+		}
+		return venues;
+	}
+	
+
+	@GetMapping("venues/search/city/{city}")
+	public List<Venue> findByCity(@PathVariable("city") String city, HttpServletResponse res){
+		
+		List<Venue> venues = venueService.findByCity(city);
+		
+		if(venues == null) {
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND); //404
+		}
+		return venues;
+	}
+	
+	@GetMapping("venues/search/state/{state}")
+	public List<Venue> findByState(@PathVariable("state") String state, HttpServletResponse res){
+		
+		List<Venue> venues = venueService.findByState(state);
+		
+		if(venues == null) {
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND); //404
+		}
+		return venues;
 	}
 	
 	}

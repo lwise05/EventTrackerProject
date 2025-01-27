@@ -65,6 +65,24 @@ public class VenueServiceImpl implements VenueService{
 		return deleted;
 	}
 
+	@Override
+	public List<Venue> findByName(String name) {
+		List<Venue> venues = venueRepo.findByNameContaining(name);
+		return venues;
+	}
+
+	@Override
+	public List<Venue> findByCity(String city) {
+		List<Venue> venues = venueRepo.findByCity(city);
+		return venues;
+	}
+
+	@Override
+	public List<Venue> findByState(String state) {
+		List<Venue> venues = venueRepo.findByState(state);
+		return venues;
+	}
+
 	
 
 
