@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.comedyevent.entities.Comedian;
+import com.skilldistillery.comedyevent.entities.ComedyEvent;
 import com.skilldistillery.comedyevent.services.ComedianService;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -88,6 +89,29 @@ public class ComedianController {
 		
 	}
 	
+	@GetMapping("comedians/search/name/{name}")
+	public List<Comedian> findByVenue(@PathVariable("name") String name, HttpServletResponse res) {
+		
+		List<Comedian>  comedians = comedianService.findByName(name);
+		
+		if(comedians == null) {
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND); //404
+		}
+	
+		return comedians;
+	}
+	
+	@GetMapping("comedians/search/category/{category}")
+	public List<Comedian> findByCategory(@PathVariable("category") String category, HttpServletResponse res) {
+		
+		List<Comedian>  comedians = comedianService.findByCategory(category);
+		
+		if(comedians == null) {
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND); //404
+		}
+	
+		return comedians;
+	}
 	
 	
 }

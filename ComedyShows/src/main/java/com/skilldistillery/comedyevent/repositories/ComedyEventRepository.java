@@ -12,5 +12,5 @@ public interface ComedyEventRepository extends JpaRepository<ComedyEvent, Intege
 	
 	List<ComedyEvent> findByRatingOrderByRatingDesc(int rating);
 	
-	List<ComedyEvent> findByVenue_Name (String name);
+	List<ComedyEvent> findByVenue_NameContaining (String name);
 }

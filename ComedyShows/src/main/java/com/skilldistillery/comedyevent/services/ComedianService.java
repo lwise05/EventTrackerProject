@@ -12,4 +12,6 @@ public interface ComedianService {
 	Comedian update(int id, Comedian comedian);
 	boolean deletedById (int id);
 	
+	List<Comedian> findByName(String name);
+	List<Comedian> findByCategory(String name);
 }

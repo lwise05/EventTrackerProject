@@ -65,6 +65,18 @@ public class ComedianServiceImpl implements ComedianService{
 		return deleted;
 	}
 
+	@Override
+	public List<Comedian> findByName(String name) {
+		List<Comedian> comedians = comedianRepo.findByFirstNameContainingOrLastNameContaining(name, name);
+		return comedians;
+	}
+
+	@Override
+	public List<Comedian> findByCategory(String name) {
+		List<Comedian> comedians = comedianRepo.findByCategory_NameContaining(name);
+		return comedians;
+	}
+
 
 	
 

@@ -91,29 +91,40 @@ public class ComedyEventController {
 		}
 	}
 	
-//	@GetMapping("comedyEvents/search/{name}")
-//	public List<ComedyEvent> findByComedian(@PathVariable("name") String name, HttpServletResponse res) {
-//		
-//		List<ComedyEvent>  events = eventService.findByComedian(name);
-//		
-//		if(events != null) {
-//			res.setStatus(HttpServletResponse.SC_OK); //200
-//		}
-//			res.setStatus(HttpServletResponse.SC_NOT_FOUND); //404	
-//		return events;
-//	}
+	@GetMapping("comedyEvents/search/comedian/{name}")
+	public List<ComedyEvent> findByComedian(@PathVariable("name") String name, HttpServletResponse res) {
+		
+		List<ComedyEvent>  events = eventService.findByComedian(name);
+		
+		if(events != null) {
+			res.setStatus(HttpServletResponse.SC_OK); //200
+		}
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND); //404	
+		return events;
+	}
 	
-	@GetMapping("comedyEvents/search/{rating}")
+	@GetMapping("comedyEvents/search/rating/{rating}")
 	public List<ComedyEvent> findByRating(@PathVariable("rating") int rating, HttpServletResponse res) {
 		
 		List<ComedyEvent>  events = eventService.findByRating(rating);
 		
-		if(events != null) {
+		if(events == null) {
 			res.setStatus(HttpServletResponse.SC_NOT_FOUND); //404
 		}
 	
 		return events;
 	}
 	
+	@GetMapping("comedyEvents/search/venue/{venue}")
+	public List<ComedyEvent> findByVenue(@PathVariable("venue") String venue, HttpServletResponse res) {
+		
+		List<ComedyEvent>  events = eventService.findByVenue(venue);
+		
+		if(events == null) {
+			res.setStatus(HttpServletResponse.SC_NOT_FOUND); //404
+		}
+	
+		return events;
+	}
 	
 }

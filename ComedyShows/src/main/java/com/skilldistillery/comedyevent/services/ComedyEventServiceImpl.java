@@ -78,8 +78,8 @@ public class ComedyEventServiceImpl implements ComedyEventService{
 
 	@Override
 	public List<ComedyEvent> findByVenue(String venue) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ComedyEvent> events = comedyRepo.findByVenue_NameContaining(venue);
+		return events;
 	}
 
 }
