@@ -45,6 +45,7 @@ public class ComedyEventServiceImpl implements ComedyEventService{
 			updatedEvent.setPerformanceDate(event.getPerformanceDate());
 			updatedEvent.setRating(event.getRating());
 			updatedEvent.setTicketPrice(event.getTicketPrice());
+			updatedEvent.setNotes(event.getNotes());
 			updatedEvent.setVenue(event.getVenue());
 			updatedEvent.setComedian(event.getComedian());
 			comedyRepo.saveAndFlush(updatedEvent);

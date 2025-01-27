@@ -29,6 +29,7 @@ public class ComedyEvent {
 	@Column(name = "ticket_price")
 	private double ticketPrice;
 	
+	private String notes;
 	
 	@ManyToOne
 	@JoinColumn(name = "comedian_id")
@@ -95,6 +96,15 @@ public class ComedyEvent {
 
 	public void setVenue(Venue venue) {
 		this.venue = venue;
+	}
+	
+
+	public String getNotes() {
+		return notes;
+	}
+
+	public void setNotes(String notes) {
+		this.notes = notes;
 	}
 
 	@Override
