@@ -28,7 +28,7 @@ class ComedianRepoTest {
 	
 	@Test
 	void test_findByCategory() {
-		List<Comedian> comedians = comedianRepo.findByCategory_NameContaining("story-telling comedy");
+		List<Comedian> comedians = comedianRepo.findByCategory_NameContaining("story");
 		assertNotNull(comedians);
 		assertTrue(comedians.size()>0);
 	}

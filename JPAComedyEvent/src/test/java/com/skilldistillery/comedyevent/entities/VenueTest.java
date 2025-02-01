@@ -45,7 +45,7 @@ class VenueTest {
 	@Test
 	void test_entity_mapping() {
 		assertNotNull(venue);
-		assertEquals("Comedy Works", venue.getName());
+		assertEquals("Comedy Works Downtown", venue.getName());
 	}
 
 	@Test

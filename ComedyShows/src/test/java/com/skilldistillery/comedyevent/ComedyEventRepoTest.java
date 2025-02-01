@@ -28,7 +28,7 @@ class ComedyEventRepoTest {
 	
 	@Test
 	void test_findByRating() {
-		List<ComedyEvent> events = eventRepo.findByRatingOrderByRatingDesc(1);
+		List<ComedyEvent> events = eventRepo.findByRatingOrderByRatingDesc(5);
 		assertNotNull(events);
 		assertTrue(events.size()>0);
 	}
