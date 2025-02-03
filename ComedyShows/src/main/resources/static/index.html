@@ -37,19 +37,26 @@
 			<h3>Add a comedy show</h3>
 			<form name="addComedyEventForm">
 				Date of Show <input type="date" name="performanceDate"><br> 
-				Enter Comedian's name or choose from drop down<br>
-				<input type="text" name="firstName" placeholder= "First Name"><input type="text" name="lastName" placeholder= "Last Name"><br>
-				First Name<select name="firstName">
-				<option></option>
-				</select>
-				Last Name<select name="firstName">
-				<option></option>
+				<!-- Enter Comedian's name or choose from drop down<br>
+				<input type="text" name="firstName" placeholder= "First Name"><input type="text" name="lastName" placeholder= "Last Name"><br> -->
+				Comedian comedy style: <select name="category">
+				<option value="1">Anecdotal (story telling)</option>
+				<option value="2">Observational (everyday life humor)</option>
+				<option value="3">Deadpan (sarcastic)</option>
+				<option value="4">Topical (social commentary)</option>
+				<option value="5">Insult (crowd work)</option>
 				</select><br>
 				
-				Enter venue info or choose from drop down
-				Venues: <select name="name"><br>
+				
+				Comedian' Name<select name="id" id="firstName"></select>
+				<!-- Last Name<select name="lastName">
 				<option></option>
-				</select><br>
+				</select><br>  -->
+				
+				Enter venue info or choose from drop down<br>
+				<!-- Venues: <select name="name">
+				<option></option>
+				</select><br> -->
 				
 				<input type="text" name="name" placeholder="Venue Name"><br>
 				<input type="text" name="street" placeholder="Street Address"><br>
@@ -61,9 +68,14 @@
 				
 				
 				Ticket Price: $<input type="number" name="ticketPrice"><br>
-				<textarea name="notes" placeholder = "Show Notes"></textarea>
-				<select name="venue">
-				</select> 
+				Rate the show: <select name="rating">
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				</select><br>
+				<textarea name="notes" placeholder = "Show Notes"></textarea> 
 				<input type="submit" name="submit" value="Submit">
 			</form> 
 

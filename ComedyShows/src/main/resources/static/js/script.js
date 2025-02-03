@@ -25,8 +25,9 @@ function loadComedyEventList() {
 				let comedyEvents = JSON.parse(xhr.responseText);
 				//console.log(comedyEvents);
 
-				//   and pass the film object to displayFilm().			
-				displayComedyEvents(comedyEvents)
+				//   and pass the film object to displayComedyEvents().			
+				displayComedyEvents(comedyEvents);
+				addEventForm(comedyEvents);
 			}
 		}
 	}
@@ -88,6 +89,13 @@ function displayComedyEvents(comedyEvents) {
 	})
 
 	let eventDiv = document.getElementById("comedyEventList");
+
+	let addEventDiv = document.getElementById("addComedyEvent");
+
+
+	eventDiv.style.display = 'block';
+	addEventDiv.style.display = 'none';
+
 	eventDiv.appendChild(addEventButton);
 
 }
@@ -154,7 +162,9 @@ function displayComedyEvent(comedyEvent) {
 		showList();
 	})
 
+
 	eventDiv.appendChild(backButton);
+
 
 	showAllEventDetails()
 
@@ -179,34 +189,66 @@ function showList() {
 }
 
 
-function addEventForm() {
+function addEventForm(comedyEvents) {
 
 	let eventListDiv = document.getElementById("comedyEventList");
 	let addEventtDiv = document.getElementById("addComedyEvent");
 
 	addEventtDiv.style.display = 'block';
 	eventListDiv.style.display = 'none';
-
-
+	
+	let selectFirstName = document.getElementById('firstName');
+	
+	
+	for (let event of comedyEvents){
+		let firstNameOpt = document.createElement('option');
+		firstNameOpt.value = event.comedian.id;
+		firstNameOpt.textContent = event.comedian.firstName + " " + event.comedian.lastName;
+		selectFirstName.appendChild(firstNameOpt);	
+	};
+	
 
 
 	document.addComedyEventForm.submit.addEventListener('click', function(e) {
 		e.preventDefault();
+		
 
 		let newComedyEvent = {
-			performanceDate: addComedyEventForm.performanceDate.value,
-			rating: addComedyEventForm.rating.value,
-			ticketPrice: addComedyEventForm.ticketPrice.value,
-			notes: addComedyEventForm.notes.value,
-			venue: addComedyEventForm.venue.value,
-			comedian: addComedyEventForm.comedian.value,
-		}
+			'performanceDate': addComedyEventForm.performanceDate.value,
+			'comedian.id': addComedyEventForm.id.value,
+			//'comedian.lastName': addComedyEventForm.lastName.value,
+			'comedian.category': addComedyEventForm.category.value,
+			'venue.name': addComedyEventForm.name.value,
+			'venue.street': addComedyEventForm.street.value,
+			'venue.street2': addComedyEventForm.street2.value,
+			'venue.city': addComedyEventForm.city.value,
+			'venue.state': addComedyEventForm.state.value,
+			'venue.postalCode': addComedyEventForm.postalCode.value,
+			'venue.country': addComedyEventForm.country.value,
+			'ticketPrice': addComedyEventForm.ticketPrice.value,
+			'rating': addComedyEventForm.rating.value,
+			'notes': addComedyEventForm.notes.value,
+			
+		};
+		
 
 		addComedyEvent(newComedyEvent);
+
 		addComedyEventForm.reset();
+
 	});
 
+	let backButton = document.createElement('button');
+	backButton.textContent = "Return to List";
+	backButton.classList.add('btn', 'btn-primary');
+	backButton.addEventListener('click', function(e) {
+		showList();
+	})
+
+	addEventtDiv.appendChild(backButton);
+
 }
+
 
 
 function addComedyEvent(newComedyEvent) {
@@ -219,30 +261,26 @@ function addComedyEvent(newComedyEvent) {
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === xhr.DONE) {
 			if (xhr.status === 200 || xhr.status === 201) {
-				// * On success, if a response was received parse the film data
-				let newFilm = JSON.parse(xhr.responseText);
-
-				//   and pass the film object to displayFilm().			
-				displayFilm(newFilm);
+				// * On success, if a response was received parse the event data
+				let newComedyEvent = JSON.parse(xhr.responseText);
+	
+				displayComedyEvent(newComedyEvent);
 
 			}
 			else {
 				// * On failure, provide error feedback			
-				console.error('Unable to complete request and add film to DB')
+				console.error('Unable to complete request and add event to DB')
 				console.error(xhr.status + ' : ' + xhr.responseText)
 			}
 		}
 	}
 
-	//javascript object constructed in init function
-
-
 	// convert JS obj to JSON
 
-	let newFilmJson = JSON.stringify(newFilm);
-	console.log(newFilmJson);
+	let newEventJson = JSON.stringify(newComedyEvent);
+	console.log(newEventJson);
 
-	xhr.send(newFilmJson);
+	xhr.send(newEventJson);
 
 
 }
