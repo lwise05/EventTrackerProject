@@ -161,13 +161,24 @@ function displayComedyEvent(comedyEvent) {
 	eventDiv.appendChild(backButton);
 
 
+	let editButton = document.createElement('button');
+	editButton.textContent = 'Edit Comedy Show';
+	editButton.classList.add('btn', 'btn-primary');
+	editButton.addEventListener('click', function(e) {
+		e.preventDefault();
+		editComedyEvent(comedyEvent)
+
+	});
+	eventDiv.appendChild(editButton);
+
+
 	let deleteButton = document.createElement('button');
 	deleteButton.textContent = 'Delete Comedy Show';
 	deleteButton.classList.add('btn', 'btn-primary');
 	deleteButton.addEventListener('click', function(e) {
 		e.preventDefault();
 		deleteComedyEvent(comedyEvent.id)
-		
+
 	});
 	eventDiv.appendChild(deleteButton);
 
@@ -367,6 +378,150 @@ function addComedyEvent(newComedyEvent) {
 	console.log(newEventJson);
 
 	xhr.send(newEventJson);
+
+
+}
+
+
+
+function editComedyEvent(comedyEvent) {
+	let comedyEventListDiv = document.getElementById('comedyEventList');
+	let comedyEventDetailsDiv = document.getElementById('comedyEventDetails');
+	let addComedyEventDiv = document.getElementById('addComedyEvent');
+	let editComedyEventDiv = document.getElementById('editComedyEvent');
+
+
+	comedyEventListDiv.style.display = 'none';
+	comedyEventDetailsDiv.style.display = 'none';
+	addComedyEventDiv.style.display = 'none';
+	editComedyEventDiv.style.display = 'block';
+
+
+	let updateForm = document.createElement('form');
+	updateForm.name = updateForm;
+	editComedyEventDiv.appendChild(updateForm);
+
+	let date = document.createElement('input');
+	date.type = 'date';
+	date.name = 'performanceDate';
+	date.value = comedyEvent.performanceDate;
+	updateForm.appendChild(date);
+
+	let select = document.createElement('select');
+	select.id = 'category';
+	select.name = 'category';
+	select.value = comedyEvent.category;
+	updateForm.appendChild(select);
+
+	let option = document.createElement('option');
+	option.value = '1';
+	option.textContent = 'Anecdotal (story telling)';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '2';
+	option.textContent = 'Observational (everyday life humor) (story telling)';
+	select.appendChild(option);
+	////////////////////////////// TODO: Add all categories
+
+	select = document.createElement('select');
+	select.id = 'comedian';
+	select.name = 'comedian';
+	select.value = comedyEvent.comedian;
+	updateForm.appendChild(select);
+
+	option = document.createElement('option');
+	option.value = '1';
+	option.textContent = 'Beth Stelling';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '2';
+	option.textContent = 'Joel Kim Booster';
+	select.appendChild(option);
+
+
+	select = document.createElement('select');
+	select.id = 'venue';
+	select.name = 'venue';
+	select.value = comedyEvent.venue;
+	updateForm.appendChild(select);
+
+	option = document.createElement('option');
+	option.value = '1';
+	option.textContent = 'Comedy Works Downtown';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '2';
+	option.textContent = 'Comedy Works South';
+	select.appendChild(option);
+
+	let ticketPrice = document.createElement('input');
+	ticketPrice.type = "number";
+	ticketPrice.name = 'ticketPrice';
+	select.value = comedyEvent.ticketPrice;
+	updateForm.appendChild(ticketPrice);
+
+	let rating = document.createElement('input');
+	rating.type = "number";
+	rating.name = 'rating';
+	select.value = comedyEvent.rating;
+	updateForm.appendChild(rating);
+
+	let submit = document.createElement('input');
+	submit.type = 'submit';
+	submit.name = 'submit';
+	submit.value = 'Submit';
+	updateForm.appendChild(submit);
+
+
+	submit.addEventListener('click', function(e) {
+		e.preventDefault();
+		let updatedComedyEvent = {
+			id: comedyEvent.id,
+			performanceDate: updateForm.performanceDate.value,
+			category: updateForm.category.value,
+			comedian: {
+				id: updateForm.comedian.value,
+			},
+			venue: {
+				id: updateForm.venue.value,
+			},
+			ticketPrice: updateForm.ticketPrice.value,
+			rating: updateForm.rating.value,
+		};
+
+		updateComedyEvent(updatedComedyEvent);
+		updateForm.reset();
+
+	});
+
+}
+
+
+function updateComedyEvent(updatedComedyEvent) {
+
+	let xhr = new XMLHttpRequest();
+
+	xhr.open('PUT', `api/comedyEvents/${updatedComedyEvent.id}`);
+
+	xhr.setRequestHeader('Content-type', 'application/json');
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 200) {
+				let comedyEvent = JSON.parse(xhr.responseText);
+				displayComedyEvent(comedyEvent.id);
+			}
+		}
+
+		else {
+			console.error(xhr.status + ': ' + xhr.responseText);
+		}
+
+	};
+	let updatedComedyEventJson = JSON.stringify(updatedComedyEvent);
+	xhr.send(updatedComedyEventJson);
 
 
 }
