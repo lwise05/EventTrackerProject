@@ -137,7 +137,7 @@ function displayComedyEvent(comedyEvent) {
 	eventDiv.appendChild(p);
 
 	p = document.createElement('p');
-	p.textContent = "Location: " + comedyEvent.venue.name;
+	p.textContent = "Venue: " + comedyEvent.venue.name;
 	eventDiv.appendChild(p);
 
 	p = document.createElement('p');
@@ -192,10 +192,12 @@ function showAllEventDetails() {
 	let detailsDiv = document.getElementById("comedyEventDetails");
 	let eventListDiv = document.getElementById("comedyEventList");
 	let comedyEventFormDiv = document.getElementById("addComedyEvent");
+	let editComedyEventDiv = document.getElementById("editComedyEvent");
 
 	detailsDiv.style.display = 'block';
 	eventListDiv.style.display = 'none';
 	comedyEventFormDiv.style.display = 'none';
+	editComedyEventDiv.style.display = 'none';
 }
 
 function showList() {
@@ -233,10 +235,24 @@ function addEventForm() {
 	form.name = "addComedyEventForm"
 	addEventtDiv.appendChild(form);
 
+	let br = document.createElement('br');
+	form.appendChild(br);
+
+	let label = document.createElement('label');
+	label.textContent = 'Performance Date';
+	form.appendChild(label);
+
 	let date = document.createElement('input');
 	date.type = 'date';
 	date.name = 'performanceDate';
 	form.appendChild(date);
+
+	br = document.createElement('br');
+	form.appendChild(br)
+
+	label = document.createElement('label');
+	label.textContent = 'Comedy Category';
+	form.appendChild(label);
 
 	let select = document.createElement('select');
 	select.id = 'category';
@@ -252,12 +268,34 @@ function addEventForm() {
 	option.value = '2';
 	option.textContent = 'Observational (everyday life humor) (story telling)';
 	select.appendChild(option);
-	////////////////////////////// TODO: Add all categories
+
+	option = document.createElement('option');
+	option.value = '3';
+	option.textContent = 'Deadpan (sarcastic) (everyday life humor) (story telling)';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '4';
+	option.textContent = 'Topical (social commentary)';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '5';
+	option.textContent = 'Insult (crowd work)';
+	select.appendChild(option);
+
+	br = document.createElement('br');
+	form.appendChild(br);
+
+	label = document.createElement('label');
+	label.textContent = 'Comedian';
+	form.appendChild(label);
 
 	select = document.createElement('select');
 	select.id = 'comedian';
 	select.name = 'comedian';
 	form.appendChild(select);
+
 
 	option = document.createElement('option');
 	option.value = '1';
@@ -269,6 +307,48 @@ function addEventForm() {
 	option.textContent = 'Joel Kim Booster';
 	select.appendChild(option);
 
+
+	option = document.createElement('option');
+	option.value = '3';
+	option.textContent = 'Chris Red';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '4';
+	option.textContent = 'Brian Simpson';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '5';
+	option.textContent = 'Josh Johnson';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '6';
+	option.textContent = 'Ralph Barbosa';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '7';
+	option.textContent = 'Nate Jackson';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '8';
+	option.textContent = 'Ali Siddiq';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '9';
+	option.textContent = 'John Mulaney';
+	select.appendChild(option);
+
+	br = document.createElement('br');
+	form.appendChild(br);
+
+	label = document.createElement('label');
+	label.textContent = 'Venue';
+	form.appendChild(label);
 
 	select = document.createElement('select');
 	select.id = 'venue';
@@ -285,22 +365,80 @@ function addEventForm() {
 	option.textContent = 'Comedy Works South';
 	select.appendChild(option);
 
+	option = document.createElement('option');
+	option.value = '3';
+	option.textContent = 'Paramount Theatre';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '4';
+	option.textContent = 'Broadmoor World Arena';
+	select.appendChild(option);
+
+	br = document.createElement('br');
+	form.appendChild(br);
+
+	label = document.createElement('label');
+	label.textContent = 'Ticket Price';
+	form.appendChild(label);
+
 	let ticketPrice = document.createElement('input');
 	ticketPrice.type = "number";
 	ticketPrice.name = 'ticketPrice';
 	form.appendChild(ticketPrice);
 
-	let rating = document.createElement('input');
-	rating.type = "number";
-	rating.name = 'rating';
-	form.appendChild(rating);
+	br = document.createElement('br');
+	form.appendChild(br);
+
+	label = document.createElement('label');
+	label.textContent = 'Showing Rating';
+	form.appendChild(label);
+
+	select = document.createElement('select');
+	select.id = 'rating';
+	select.name = 'rating';
+	form.appendChild(select);
+
+	option = document.createElement('option');
+	option.value = '1';
+	option.textContent = '1';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '2';
+	option.textContent = '2';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '3';
+	option.textContent = '3';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '4';
+	option.textContent = '4';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '5';
+	option.textContent = '5';
+	select.appendChild(option);
+
+	br = document.createElement('br');
+	form.appendChild(br);
+
+	let textarea = document.createElement('textarea');
+	textarea.value = "";
+	form.appendChild(textarea);
+
+	br = document.createElement('br');
+	form.appendChild(br);
 
 	let submit = document.createElement('input');
 	submit.type = 'submit';
 	submit.name = 'submit';
 	submit.value = 'Submit';
 	form.appendChild(submit);
-
 
 	document.addComedyEventForm.submit.addEventListener('click', function(e) {
 		//e.preventDefault();
@@ -317,6 +455,7 @@ function addEventForm() {
 			},
 			ticketPrice: addComedyEventForm.ticketPrice.value,
 			rating: addComedyEventForm.rating.value,
+			notes: addComedyEventForm.rating.value,
 		};
 
 
@@ -398,14 +537,25 @@ function editComedyEvent(comedyEvent) {
 
 
 	let updateForm = document.createElement('form');
-	updateForm.name = updateForm;
+	updateForm.name = 'updateForm';
 	editComedyEventDiv.appendChild(updateForm);
+
+	let label = document.createElement('label');
+	label.textContent = 'Performance Date';
+	updateForm.appendChild(label);
 
 	let date = document.createElement('input');
 	date.type = 'date';
 	date.name = 'performanceDate';
 	date.value = comedyEvent.performanceDate;
 	updateForm.appendChild(date);
+
+	let br = document.createElement('br');
+	updateForm.appendChild(br);
+
+	label = document.createElement('label');
+	label.textContent = 'Comedy Category';
+	updateForm.appendChild(label);
 
 	let select = document.createElement('select');
 	select.id = 'category';
@@ -422,13 +572,35 @@ function editComedyEvent(comedyEvent) {
 	option.value = '2';
 	option.textContent = 'Observational (everyday life humor) (story telling)';
 	select.appendChild(option);
-	////////////////////////////// TODO: Add all categories
+
+	option = document.createElement('option');
+	option.value = '3';
+	option.textContent = 'Deadpan (sarcastic) (everyday life humor) (story telling)';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '4';
+	option.textContent = 'Topical (social commentary)';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '5';
+	option.textContent = 'Insult (crowd work)';
+	select.appendChild(option);
+
+	br = document.createElement('br');
+	updateForm.appendChild(br);
+
+	label = document.createElement('label');
+	label.textContent = 'Comedian';
+	updateForm.appendChild(label);
 
 	select = document.createElement('select');
 	select.id = 'comedian';
 	select.name = 'comedian';
 	select.value = comedyEvent.comedian;
 	updateForm.appendChild(select);
+
 
 	option = document.createElement('option');
 	option.value = '1';
@@ -440,6 +612,48 @@ function editComedyEvent(comedyEvent) {
 	option.textContent = 'Joel Kim Booster';
 	select.appendChild(option);
 
+
+	option = document.createElement('option');
+	option.value = '3';
+	option.textContent = 'Chris Red';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '4';
+	option.textContent = 'Brian Simpson';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '5';
+	option.textContent = 'Josh Johnson';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '6';
+	option.textContent = 'Ralph Barbosa';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '7';
+	option.textContent = 'Nate Jackson';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '8';
+	option.textContent = 'Ali Siddiq';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '9';
+	option.textContent = 'John Mulaney';
+	select.appendChild(option);
+
+	br = document.createElement('br');
+	updateForm.appendChild(br);
+
+	label = document.createElement('label');
+	label.textContent = 'Venue';
+	updateForm.appendChild(label);
 
 	select = document.createElement('select');
 	select.id = 'venue';
@@ -457,17 +671,78 @@ function editComedyEvent(comedyEvent) {
 	option.textContent = 'Comedy Works South';
 	select.appendChild(option);
 
+	option = document.createElement('option');
+	option.value = '3';
+	option.textContent = 'Paramount Theatre';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '4';
+	option.textContent = 'Broadmoor World Arena';
+	select.appendChild(option);
+
+	br = document.createElement('br');
+	updateForm.appendChild(br);
+
+	label = document.createElement('label');
+	label.textContent = 'Ticket Price';
+	updateForm.appendChild(label);
+
 	let ticketPrice = document.createElement('input');
 	ticketPrice.type = "number";
 	ticketPrice.name = 'ticketPrice';
-	select.value = comedyEvent.ticketPrice;
+	select.value = '$' + comedyEvent.ticketPrice;
 	updateForm.appendChild(ticketPrice);
 
-	let rating = document.createElement('input');
-	rating.type = "number";
-	rating.name = 'rating';
+	br = document.createElement('br');
+	updateForm.appendChild(br);
+
+	label = document.createElement('label');
+	label.textContent = 'Showing Rating';
+	updateForm.appendChild(label);
+
+	select = document.createElement('select');
+	select.id = 'rating';
+	select.name = 'rating';
 	select.value = comedyEvent.rating;
-	updateForm.appendChild(rating);
+	updateForm.appendChild(select);
+
+	option = document.createElement('option');
+	option.value = '1';
+	option.textContent = '1';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '2';
+	option.textContent = '2';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '3';
+	option.textContent = '3';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '4';
+	option.textContent = '4';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '5';
+	option.textContent = '5';
+	select.appendChild(option);
+
+	br = document.createElement('br');
+	updateForm.appendChild(br);
+
+
+	let textarea = document.createElement('textarea');
+	textarea.name='notes';
+	textarea.textContent = comedyEvent.notes;
+	updateForm.appendChild(textarea);
+
+	br = document.createElement('br');
+	updateForm.appendChild(br);
 
 	let submit = document.createElement('input');
 	submit.type = 'submit';
@@ -490,6 +765,7 @@ function editComedyEvent(comedyEvent) {
 			},
 			ticketPrice: updateForm.ticketPrice.value,
 			rating: updateForm.rating.value,
+			notes: updateForm.notes.value,
 		};
 
 		updateComedyEvent(updatedComedyEvent);
@@ -511,7 +787,9 @@ function updateComedyEvent(updatedComedyEvent) {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200) {
 				let comedyEvent = JSON.parse(xhr.responseText);
-				displayComedyEvent(comedyEvent.id);
+				getComedyEvent(comedyEvent.id)
+
+
 			}
 		}
 
