@@ -132,26 +132,35 @@ function displayComedyEvent(comedyEvent) {
 	eventDiv.appendChild(h3);
 
 	let p = document.createElement('p');
-	p.textContent = comedyEvent.performanceDate;
+	p.textContent = "Performance date: " + comedyEvent.performanceDate;
 	eventDiv.appendChild(p);
 
 	p = document.createElement('p');
-	p.textContent = comedyEvent.venue.name;
+	p.textContent = "Location: " + comedyEvent.venue.name;
 	eventDiv.appendChild(p);
 
 	p = document.createElement('p');
-	p.textContent = "Ticket Price: $ " + comedyEvent.ticketPrice;
+	p.textContent = "Ticket Price: $" + comedyEvent.ticketPrice;
 	eventDiv.appendChild(p);
 
 	p = document.createElement('p');
-	p.textContent = comedyEvent.rating;
+	p.textContent = "Rating: " + comedyEvent.rating;
 	eventDiv.appendChild(p);
 
 	p = document.createElement('p');
-	p.textContent = comedyEvent.notes;
+	p.textContent = "Show notes: " + comedyEvent.notes;
 	eventDiv.appendChild(p);
 
-
+	let backButton = document.createElement('button');
+	backButton.textContent = "Return to List";
+	backButton.classList.add('btn','btn-primary');
+	backButton.addEventListener('click', function(e){
+		showList();
+	})
+	
+	eventDiv.appendChild(backButton);
+	
+	showAllEventDetails()
 
 
 
@@ -165,6 +174,16 @@ function showAllEventDetails(){
 	detailsDiv.style.display = 'block';
 	eventListDiv.style.display = 'none';
 }
+
+function showList(){
+	
+	let detailsDiv = document.getElementById("comedyEventDetails");
+	let eventListDiv = document.getElementById("comedyEventList");
+	
+	detailsDiv.style.display = 'none';
+	eventListDiv.style.display = 'block';
+}
+
 
 function addComedyEvent(newComedyEvent) {
 	let xhr = new XMLHttpRequest();
