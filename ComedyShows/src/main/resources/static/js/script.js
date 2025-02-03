@@ -158,9 +158,18 @@ function displayComedyEvent(comedyEvent) {
 	backButton.addEventListener('click', function(e) {
 		showList();
 	})
-
-
 	eventDiv.appendChild(backButton);
+
+
+	let deleteButton = document.createElement('button');
+	deleteButton.textContent = 'Delete Comedy Show';
+	deleteButton.classList.add('btn', 'btn-primary');
+	deleteButton.addEventListener('click', function(e) {
+		e.preventDefault();
+		deleteComedyEvent(comedyEvent.id)
+		
+	});
+	eventDiv.appendChild(deleteButton);
 
 
 	showAllEventDetails()
@@ -264,17 +273,17 @@ function addEventForm() {
 	option.value = '2';
 	option.textContent = 'Comedy Works South';
 	select.appendChild(option);
-	
+
 	let ticketPrice = document.createElement('input');
 	ticketPrice.type = "number";
 	ticketPrice.name = 'ticketPrice';
 	form.appendChild(ticketPrice);
-	
+
 	let rating = document.createElement('input');
 	rating.type = "number";
 	rating.name = 'rating';
 	form.appendChild(rating);
-	
+
 	let submit = document.createElement('input');
 	submit.type = 'submit';
 	submit.name = 'submit';
@@ -285,39 +294,39 @@ function addEventForm() {
 	document.addComedyEventForm.submit.addEventListener('click', function(e) {
 		//e.preventDefault();
 
-		
+
 		let newComedyEvent = {
 			performanceDate: addComedyEventForm.performanceDate.value,
 			category: addComedyEventForm.category.value,
 			comedian: {
 				id: addComedyEventForm.comedian.value,
-			}, 
+			},
 			venue: {
 				id: addComedyEventForm.venue.value,
-				},
-			ticketPrice: addComedyEventForm.ticketPrice.value,	
-			rating: addComedyEventForm.rating.value,	
+			},
+			ticketPrice: addComedyEventForm.ticketPrice.value,
+			rating: addComedyEventForm.rating.value,
 		};
-		
-		
-		
+
+
+
 
 		//let newComedyEvent = {
-			//'performanceDate': addComedyEventForm.performanceDate.value,
-			//'comedian.id': addComedyEventForm.comedian_id.value,
-			//'comedian.lastName': addComedyEventForm.lastName.value,
-			//'comedian.category': addComedyEventForm.category.value,
-			//'venue.id': addComedyEventForm.venueId.value,
-			//'venue.name': addComedyEventForm.name.value,
-			//'venue.street': addComedyEventForm.street.value,
-			//'venue.street2': addComedyEventForm.street2.value,
-			//'venue.city': addComedyEventForm.city.value,
-			//'venue.state': addComedyEventForm.state.value,
-			//'venue.postalCode': addComedyEventForm.postalCode.value,
-			//'venue.country': addComedyEventForm.country.value,
-			//'ticketPrice': addComedyEventForm.ticketPrice.value,
-			//'rating': addComedyEventForm.rating.value,
-			//'notes': addComedyEventForm.notes.value,
+		//'performanceDate': addComedyEventForm.performanceDate.value,
+		//'comedian.id': addComedyEventForm.comedian_id.value,
+		//'comedian.lastName': addComedyEventForm.lastName.value,
+		//'comedian.category': addComedyEventForm.category.value,
+		//'venue.id': addComedyEventForm.venueId.value,
+		//'venue.name': addComedyEventForm.name.value,
+		//'venue.street': addComedyEventForm.street.value,
+		//'venue.street2': addComedyEventForm.street2.value,
+		//'venue.city': addComedyEventForm.city.value,
+		//'venue.state': addComedyEventForm.state.value,
+		//'venue.postalCode': addComedyEventForm.postalCode.value,
+		//'venue.country': addComedyEventForm.country.value,
+		//'ticketPrice': addComedyEventForm.ticketPrice.value,
+		//'rating': addComedyEventForm.rating.value,
+		//'notes': addComedyEventForm.notes.value,
 		//};
 
 		addComedyEvent(newComedyEvent);
@@ -332,7 +341,7 @@ function addEventForm() {
 
 function addComedyEvent(newComedyEvent) {
 	let xhr = new XMLHttpRequest();
-	xhr.open('POST', 'api/comedyEvents');////////////************************ */
+	xhr.open('POST', 'api/comedyEvents');
 
 	// speficy the type of request body you're sending
 	xhr.setRequestHeader("Content-type", "application/json");
@@ -343,7 +352,6 @@ function addComedyEvent(newComedyEvent) {
 				// * On success, if a response was received parse the event data
 				let newComedyEvent = JSON.parse(xhr.responseText);
 
-				//displayComedyEvents(newComedyEvent);
 
 			}
 			else {
@@ -354,12 +362,32 @@ function addComedyEvent(newComedyEvent) {
 		}
 	}
 
-	// convert JS obj to JSON
 
 	let newEventJson = JSON.stringify(newComedyEvent);
 	console.log(newEventJson);
 
 	xhr.send(newEventJson);
+
+
+}
+
+function deleteComedyEvent(comedyEventId) {
+	let xhr = new XMLHttpRequest();
+
+	xhr.open('DELETE', `api/comedyEvents/${comedyEventId}`);
+
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 204 || xhr.status === 200) {
+				console.log("deleted " + comedyEventId);
+				init();
+			}
+		}
+		else {
+			console.error(xhr.status + ': ' + xhr.responseText);
+		}
+	}
+	xhr.send();
 
 
 }
