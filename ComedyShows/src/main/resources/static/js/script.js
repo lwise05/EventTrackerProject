@@ -10,21 +10,7 @@ function init() {
 	loadComedyEventList();
 
 	//TODO: event listeners for HTML form buttons, etc.
-	document.addComedyEventForm.submit.addEventListener('click', function(e) {
-		e.preventDefault();
 
-		let newComedyEvent = {
-			performanceDate: addComedyEventForm.performanceDate.value,
-			rating: addComedyEventForm.rating.value,
-			ticketPrice: addComedyEventForm.ticketPrice.value,
-			notes: addComedyEventForm.notes.value,
-			venue: addComedyEventForm.venue.value,
-			comedian: addComedyEventForm.comedian.value,
-		}
-
-		addComedyEvent(newComedyEvent);
-		addComedyEventForm.reset();
-	});
 }
 
 function loadComedyEventList() {
@@ -94,6 +80,16 @@ function displayComedyEvents(comedyEvents) {
 
 		tbody.appendChild(tr);
 	}
+	let addEventButton = document.createElement('button');
+	addEventButton.textContent = "Add a Comedy Show";
+	addEventButton.classList.add('btn', 'btn-primary');
+	addEventButton.addEventListener('click', function(e) {
+		addEventForm();
+	})
+
+	let eventDiv = document.getElementById("comedyEventList");
+	eventDiv.appendChild(addEventButton);
+
 }
 
 function getComedyEvent(comedyEventId) {
@@ -153,35 +149,63 @@ function displayComedyEvent(comedyEvent) {
 
 	let backButton = document.createElement('button');
 	backButton.textContent = "Return to List";
-	backButton.classList.add('btn','btn-primary');
-	backButton.addEventListener('click', function(e){
+	backButton.classList.add('btn', 'btn-primary');
+	backButton.addEventListener('click', function(e) {
 		showList();
 	})
-	
+
 	eventDiv.appendChild(backButton);
-	
+
 	showAllEventDetails()
-
-
 
 }
 
-function showAllEventDetails(){
-	
+function showAllEventDetails() {
+
 	let detailsDiv = document.getElementById("comedyEventDetails");
 	let eventListDiv = document.getElementById("comedyEventList");
-	
+
 	detailsDiv.style.display = 'block';
 	eventListDiv.style.display = 'none';
 }
 
-function showList(){
-	
+function showList() {
+
 	let detailsDiv = document.getElementById("comedyEventDetails");
 	let eventListDiv = document.getElementById("comedyEventList");
-	
+
 	detailsDiv.style.display = 'none';
 	eventListDiv.style.display = 'block';
+}
+
+
+function addEventForm() {
+
+	let eventListDiv = document.getElementById("comedyEventList");
+	let addEventtDiv = document.getElementById("addComedyEvent");
+
+	addEventtDiv.style.display = 'block';
+	eventListDiv.style.display = 'none';
+
+
+
+
+	document.addComedyEventForm.submit.addEventListener('click', function(e) {
+		e.preventDefault();
+
+		let newComedyEvent = {
+			performanceDate: addComedyEventForm.performanceDate.value,
+			rating: addComedyEventForm.rating.value,
+			ticketPrice: addComedyEventForm.ticketPrice.value,
+			notes: addComedyEventForm.notes.value,
+			venue: addComedyEventForm.venue.value,
+			comedian: addComedyEventForm.comedian.value,
+		}
+
+		addComedyEvent(newComedyEvent);
+		addComedyEventForm.reset();
+	});
+
 }
 
 

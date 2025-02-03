@@ -17,7 +17,7 @@
 		<h1>Comedy Show Tracker</h1>
 
 		<div id="comedyEventList">
-			<table>
+			<table class="table table-bordered table-f5c3cc">
 				<thead>
 					<tr>
 						<th>Comedian Image</th>
@@ -36,15 +36,36 @@
 		<div id="addComedyEvent">
 			<h3>Add a comedy show</h3>
 			<form name="addComedyEventForm">
-				<input type="date" name="performanceDate"><br> 
-				<input type="number" name="rating"><br> 
-				<input type="number" name="ticketPrice"><br>
-				<textarea name="notes"></textarea>
-				<select name="venue">
-				</select> <select name="comedian">
+				Date of Show <input type="date" name="performanceDate"><br> 
+				Enter Comedian's name or choose from drop down<br>
+				<input type="text" name="firstName" placeholder= "First Name"><input type="text" name="lastName" placeholder= "Last Name"><br>
+				First Name<select name="firstName">
+				<option></option>
 				</select>
+				Last Name<select name="firstName">
+				<option></option>
+				</select><br>
+				
+				Enter venue info or choose from drop down
+				Venues: <select name="name"><br>
+				<option></option>
+				</select><br>
+				
+				<input type="text" name="name" placeholder="Venue Name"><br>
+				<input type="text" name="street" placeholder="Street Address"><br>
+				<input type="text" name="street2" placeholder="2nd Street Address"><br>
+				<input type="text" name="city" placeholder="City"><br>
+				<input type="text" name="state" placeholder="State"><br>
+				<input type="number" name="postalCode" placeholder="Postal Code"><br>
+				<input type="text" name="country" placeholder="Country Abbreviation"><br>
+				
+				
+				Ticket Price: $<input type="number" name="ticketPrice"><br>
+				<textarea name="notes" placeholder = "Show Notes"></textarea>
+				<select name="venue">
+				</select> 
 				<input type="submit" name="submit" value="Submit">
-			</form>
+			</form> 
 
 		</div>
 
