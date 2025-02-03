@@ -35,10 +35,10 @@
 		<div id="venueList"></div>
 		<div id="addComedyEvent">
 			<h3>Add a comedy show</h3>
-			<form name="addComedyEventForm">
+		<!-- 	<form name="addComedyEventForm">
 				Date of Show <input type="date" name="performanceDate"><br> 
-				<!-- Enter Comedian's name or choose from drop down<br>
-				<input type="text" name="firstName" placeholder= "First Name"><input type="text" name="lastName" placeholder= "Last Name"><br> -->
+				Enter Comedian's name or choose from drop down<br>
+				<input type="text" name="firstName" placeholder= "First Name"><input type="text" name="lastName" placeholder= "Last Name"><br>
 				Comedian comedy style: <select name="category">
 				<option value="1">Anecdotal (story telling)</option>
 				<option value="2">Observational (everyday life humor)</option>
@@ -48,24 +48,21 @@
 				</select><br>
 				
 				
-				Comedian' Name<select name="id" id="firstName"></select>
-				<!-- Last Name<select name="lastName">
-				<option></option>
-				</select><br>  -->
+				Comedian <select name="comedian_id" id="comedian.id">
+				<option value="1">Beth Stelling</option>
+				<option value="2">Joel Kim Booster</option>
+				<option value="3">Chris Red</option>
+				<option value="4">Brian Simpson</option>
+				<option value="5">Josh Johnson</option>
+				</select><br>
 				
-				Enter venue info or choose from drop down<br>
-				<!-- Venues: <select name="name">
-				<option></option>
-				</select><br> -->
-				
-				<input type="text" name="name" placeholder="Venue Name"><br>
-				<input type="text" name="street" placeholder="Street Address"><br>
-				<input type="text" name="street2" placeholder="2nd Street Address"><br>
-				<input type="text" name="city" placeholder="City"><br>
-				<input type="text" name="state" placeholder="State"><br>
-				<input type="number" name="postalCode" placeholder="Postal Code"><br>
-				<input type="text" name="country" placeholder="Country Abbreviation"><br>
-				
+				Venue Location <select name="venueId" id="venue">
+				<option value="1">Comedy Works Downtown</option>
+				<option value="2">Comedy Works South</option>
+				<option value="3">Paramount Theatre</option>
+				<option value="4">Broadmoor World Arena</option>
+				</select><br>
+			
 				
 				Ticket Price: $<input type="number" name="ticketPrice"><br>
 				Rate the show: <select name="rating">
@@ -77,7 +74,7 @@
 				</select><br>
 				<textarea name="notes" placeholder = "Show Notes"></textarea> 
 				<input type="submit" name="submit" value="Submit">
-			</form> 
+			</form>  -->
 
 		</div>
 

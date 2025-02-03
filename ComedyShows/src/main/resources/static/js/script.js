@@ -27,7 +27,7 @@ function loadComedyEventList() {
 
 				//   and pass the film object to displayComedyEvents().			
 				displayComedyEvents(comedyEvents);
-				addEventForm(comedyEvents);
+
 			}
 		}
 	}
@@ -81,22 +81,19 @@ function displayComedyEvents(comedyEvents) {
 
 		tbody.appendChild(tr);
 	}
-	let addEventButton = document.createElement('button');
-	addEventButton.textContent = "Add a Comedy Show";
-	addEventButton.classList.add('btn', 'btn-primary');
-	addEventButton.addEventListener('click', function(e) {
-		addEventForm();
-	})
+	addEventForm(comedyEvents);
+	//let addEventButton = document.createElement('button');
+	//addEventButton.textContent = "Add a Comedy Show";
+	//addEventButton.classList.add('btn', 'btn-primary');
+	//addEventButton.addEventListener('click', function(e) {
+	//addEventForm(comedyEvents);
+	//	});
 
 	let eventDiv = document.getElementById("comedyEventList");
-
 	let addEventDiv = document.getElementById("addComedyEvent");
-
-
 	eventDiv.style.display = 'block';
-	addEventDiv.style.display = 'none';
-
-	eventDiv.appendChild(addEventButton);
+	//addEventDiv.style.display = 'none';
+	//eventDiv.appendChild(addEventButton);
 
 }
 
@@ -174,78 +171,160 @@ function showAllEventDetails() {
 
 	let detailsDiv = document.getElementById("comedyEventDetails");
 	let eventListDiv = document.getElementById("comedyEventList");
+	let comedyEventFormDiv = document.getElementById("addComedyEvent");
 
 	detailsDiv.style.display = 'block';
 	eventListDiv.style.display = 'none';
+	comedyEventFormDiv.style.display = 'none';
 }
 
 function showList() {
 
 	let detailsDiv = document.getElementById("comedyEventDetails");
 	let eventListDiv = document.getElementById("comedyEventList");
+	let comedyEventFormDiv = document.getElementById("addComedyEvent");
 
 	detailsDiv.style.display = 'none';
 	eventListDiv.style.display = 'block';
+	comedyEventFormDiv.style.display = 'block';
 }
 
 
-function addEventForm(comedyEvents) {
+function addEventForm() {
 
-	let eventListDiv = document.getElementById("comedyEventList");
+	//for (let event of comedyEvents) {
+	//	let selectFirstName = document.getElementById('firstName');
+	//	let firstNameOpt = document.createElement('option');
+	//	firstNameOpt.value = event.comedian.id;
+	//	firstNameOpt.textContent = event.comedian.firstName + " " + event.comedian.lastName;
+	//	selectFirstName.appendChild(firstNameOpt);
+	//	let selectVenue = document.getElementById('venue');
+	//	let venueOpt = document.createElement('option');
+	//	venueOpt.value = event.venue.id;
+	//	venueOpt.textContent = event.venue.name;
+	//	selectVenue.appendChild(venueOpt);
+	//};
+
+	//let eventListDiv = document.getElementById("comedyEventList");
 	let addEventtDiv = document.getElementById("addComedyEvent");
+	//addEventtDiv.style.display = 'block';
 
-	addEventtDiv.style.display = 'block';
-	eventListDiv.style.display = 'none';
+	let form = document.createElement('form');
+	form.name = "addComedyEventForm"
+	addEventtDiv.appendChild(form);
+
+	let date = document.createElement('input');
+	date.type = 'date';
+	date.name = 'performanceDate';
+	form.appendChild(date);
+
+	let select = document.createElement('select');
+	select.id = 'category';
+	select.name = 'category';
+	form.appendChild(select);
+
+	let option = document.createElement('option');
+	option.value = '1';
+	option.textContent = 'Anecdotal (story telling)';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '2';
+	option.textContent = 'Observational (everyday life humor) (story telling)';
+	select.appendChild(option);
+	////////////////////////////// TODO: Add all categories
+
+	select = document.createElement('select');
+	select.id = 'comedian';
+	select.name = 'comedian';
+	form.appendChild(select);
+
+	option = document.createElement('option');
+	option.value = '1';
+	option.textContent = 'Beth Stelling';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '2';
+	option.textContent = 'Joel Kim Booster';
+	select.appendChild(option);
+
+
+	select = document.createElement('select');
+	select.id = 'venue';
+	select.name = 'venue';
+	form.appendChild(select);
+
+	option = document.createElement('option');
+	option.value = '1';
+	option.textContent = 'Comedy Works Downtown';
+	select.appendChild(option);
+
+	option = document.createElement('option');
+	option.value = '2';
+	option.textContent = 'Comedy Works South';
+	select.appendChild(option);
 	
-	let selectFirstName = document.getElementById('firstName');
+	let ticketPrice = document.createElement('input');
+	ticketPrice.type = "number";
+	ticketPrice.name = 'ticketPrice';
+	form.appendChild(ticketPrice);
 	
+	let rating = document.createElement('input');
+	rating.type = "number";
+	rating.name = 'rating';
+	form.appendChild(rating);
 	
-	for (let event of comedyEvents){
-		let firstNameOpt = document.createElement('option');
-		firstNameOpt.value = event.comedian.id;
-		firstNameOpt.textContent = event.comedian.firstName + " " + event.comedian.lastName;
-		selectFirstName.appendChild(firstNameOpt);	
-	};
-	
+	let submit = document.createElement('input');
+	submit.type = 'submit';
+	submit.name = 'submit';
+	submit.value = 'Submit';
+	form.appendChild(submit);
 
 
 	document.addComedyEventForm.submit.addEventListener('click', function(e) {
-		e.preventDefault();
-		
+		//e.preventDefault();
 
+		
 		let newComedyEvent = {
-			'performanceDate': addComedyEventForm.performanceDate.value,
-			'comedian.id': addComedyEventForm.id.value,
-			//'comedian.lastName': addComedyEventForm.lastName.value,
-			'comedian.category': addComedyEventForm.category.value,
-			'venue.name': addComedyEventForm.name.value,
-			'venue.street': addComedyEventForm.street.value,
-			'venue.street2': addComedyEventForm.street2.value,
-			'venue.city': addComedyEventForm.city.value,
-			'venue.state': addComedyEventForm.state.value,
-			'venue.postalCode': addComedyEventForm.postalCode.value,
-			'venue.country': addComedyEventForm.country.value,
-			'ticketPrice': addComedyEventForm.ticketPrice.value,
-			'rating': addComedyEventForm.rating.value,
-			'notes': addComedyEventForm.notes.value,
-			
+			performanceDate: addComedyEventForm.performanceDate.value,
+			category: addComedyEventForm.category.value,
+			comedian: {
+				id: addComedyEventForm.comedian.value,
+			}, 
+			venue: {
+				id: addComedyEventForm.venue.value,
+				},
+			ticketPrice: addComedyEventForm.ticketPrice.value,	
+			rating: addComedyEventForm.rating.value,	
 		};
 		
+		
+		
+
+		//let newComedyEvent = {
+			//'performanceDate': addComedyEventForm.performanceDate.value,
+			//'comedian.id': addComedyEventForm.comedian_id.value,
+			//'comedian.lastName': addComedyEventForm.lastName.value,
+			//'comedian.category': addComedyEventForm.category.value,
+			//'venue.id': addComedyEventForm.venueId.value,
+			//'venue.name': addComedyEventForm.name.value,
+			//'venue.street': addComedyEventForm.street.value,
+			//'venue.street2': addComedyEventForm.street2.value,
+			//'venue.city': addComedyEventForm.city.value,
+			//'venue.state': addComedyEventForm.state.value,
+			//'venue.postalCode': addComedyEventForm.postalCode.value,
+			//'venue.country': addComedyEventForm.country.value,
+			//'ticketPrice': addComedyEventForm.ticketPrice.value,
+			//'rating': addComedyEventForm.rating.value,
+			//'notes': addComedyEventForm.notes.value,
+		//};
 
 		addComedyEvent(newComedyEvent);
-
 		addComedyEventForm.reset();
 
 	});
 
-	let backButton = document.createElement('button');
-	backButton.textContent = "Return to List";
-	backButton.classList.add('btn', 'btn-primary');
-	backButton.addEventListener('click', function(e) {
-		showList();
-	})
-
-	addEventtDiv.appendChild(backButton);
 
 }
 
@@ -263,8 +342,8 @@ function addComedyEvent(newComedyEvent) {
 			if (xhr.status === 200 || xhr.status === 201) {
 				// * On success, if a response was received parse the event data
 				let newComedyEvent = JSON.parse(xhr.responseText);
-	
-				displayComedyEvent(newComedyEvent);
+
+				//displayComedyEvents(newComedyEvent);
 
 			}
 			else {
