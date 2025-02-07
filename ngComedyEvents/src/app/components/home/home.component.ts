@@ -14,6 +14,7 @@ import { ComedyEvent } from '../../models/comedy-event';
 export class HomeComponent implements OnInit{
 
   comedyEvents: ComedyEvent [] = [];
+  event: ComedyEvent | null = null;
 
   constructor(private comedyEventService :ComedyEventService) {
 
@@ -35,5 +36,11 @@ export class HomeComponent implements OnInit{
     });
     }
 
+    displayEvent(event: ComedyEvent) {
+      this.event = event;
+    }
 
+    displayTable() {
+      this.event = null;
+    }
 }

@@ -1,5 +1,32 @@
 <h1>Comedy Show Tracker</h1>
 
-<div *ngFor= "let event of comedyEvents">
-  <p>{{event.comedian.firstName}}</p>
+<!-- Event Table -->
+<div *ngIf="!event">
+<table class="table table-stiped table-hover">
+<thead class="table table-dark">
+<tr>
+  <th></th>
+  <th>Comedian</th>
+  <th>Date</th>
+</tr>
+</thead>
+<tbody>
+<tr *ngFor= "let comedyEvent of comedyEvents" (click)="displayEvent(comedyEvent)">
+  <td><img [src] = "comedyEvent.comedian.imageUrl" class="img-fluid rounded-circle mb-2"
+            style = "width: 80px; height: 80px"  ></td>
+  <td>{{comedyEvent.comedian.firstName + " " + comedyEvent.comedian.lastName }}</td>
+  <td>{{comedyEvent.performanceDate}}</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- Display Comedy Event -->
+<div *ngIf="event">
+ <img [src] = "event.comedian.imageUrl">
+ <td>{{event.comedian.firstName + " " + event.comedian.lastName }}</td><br>
+ <td>Date of show {{event.performanceDate}}</td><br>
+ <td>Ticket Price ${{event.ticketPrice}}</td><br>
+ <td>Notes {{event.notes}}</td><br>
+ <button (click)=displayTable()>Back Home</button>
 </div>
