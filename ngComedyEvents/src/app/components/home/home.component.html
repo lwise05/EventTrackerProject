@@ -25,6 +25,7 @@
 <div *ngIf="event">
  <img [src] = "event.comedian.imageUrl">
  <td>{{event.comedian.firstName + " " + event.comedian.lastName }}</td><br>
+ <td>Venue {{event.venue.name}}</td><br>
  <td>Date of show {{event.performanceDate}}</td><br>
  <td>Ticket Price ${{event.ticketPrice}}</td><br>
  <td>Notes {{event.notes}}</td><br>
