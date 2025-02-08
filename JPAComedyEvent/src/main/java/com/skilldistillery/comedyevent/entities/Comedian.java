@@ -43,6 +43,11 @@ public class Comedian {
 	public Comedian() {
 		super();
 	}
+	
+	public Comedian(int id) {
+		super();
+		this.id = id;
+	}
 
 	public int getId() {
 		return id;

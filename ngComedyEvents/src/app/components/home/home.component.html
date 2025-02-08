@@ -1,33 +1,61 @@
 <h1>Comedy Show Tracker</h1>
 
 <!-- Event Table -->
-<div *ngIf="!event">
+<div *ngIf="!selectedEvent">
 <table class="table table-stiped table-hover">
 <thead class="table table-dark">
 <tr>
   <th></th>
   <th>Comedian</th>
   <th>Date</th>
+  <th></th>
 </tr>
 </thead>
 <tbody>
-<tr *ngFor= "let comedyEvent of comedyEvents" (click)="displayEvent(comedyEvent)">
-  <td><img [src] = "comedyEvent.comedian.imageUrl" class="img-fluid rounded-circle mb-2"
+<tr *ngFor= "let comedyEvent of comedyEvents">
+  <td (click)="displayEvent(comedyEvent)"><img [src] = "comedyEvent.comedian.imageUrl" class="img-fluid rounded-circle mb-2"
             style = "width: 80px; height: 80px"  ></td>
-  <td>{{comedyEvent.comedian.firstName + " " + comedyEvent.comedian.lastName }}</td>
+  <td (click)="displayEvent(comedyEvent)">{{comedyEvent.comedian.firstName + " " + comedyEvent.comedian.lastName }}</td>
   <td>{{comedyEvent.performanceDate}}</td>
+  <td><button class="btn btn-danger"(click)="deleteEvent(comedyEvent.id)">X</button></td>
 </tr>
 </tbody>
 </table>
 </div>
 
+<!-- Create Comedy Event Form -->
+<form>
+  <label for= "comedyEvent.comedian">Comedian</label>
+  <select name= "comedyEvent.comedian.id" [(ngModel)]="newEvent.comedian">
+  <option *ngFor="let comedian of comedians" value="{{comedian.id}}">{{comedian.firstName + " " + comedian.lastName}}</option>
+  <!-- <input type= "text" name= "comedian.firstName" placeholder= "Comedian's First Name" [(ngModel)]="newComedian.firstName">
+  <input type= "text" name= "comedian.lastName" placeholder= "Comedian's Last Name" [(ngModel)]="newComedian.lastName"><br> -->
+</select>
+
+  <label for= "venue.name">Venue</label>
+  <select name= "comedyEvent.venue.id" [(ngModel)]="newEvent.venue">
+  <option *ngFor="let venue of venues" value="{{venue.id}}">{{venue.name}}</option>
+  <!-- <input type= "text" name= "venue.name" placeholder= "Venue Name" [(ngModel)]="newVenue.name"><br> -->
+</select>
+
+  <label for= "comedyEvent.rating">Rating</label>
+  <select name= "comedyEvent.rating" [(ngModel)]="newEvent.rating">
+  <option value="1">1</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+  <option value="4">4</option>
+  <option value="5">5</option>
+  </select>
+<button (click)=createEvent(newEvent)>Add New Comedy Show </button>
+</form>
+
 <!-- Display Comedy Event -->
-<div *ngIf="event">
- <img [src] = "event.comedian.imageUrl">
- <td>{{event.comedian.firstName + " " + event.comedian.lastName }}</td><br>
- <td>Venue {{event.venue.name}}</td><br>
- <td>Date of show {{event.performanceDate}}</td><br>
- <td>Ticket Price ${{event.ticketPrice}}</td><br>
- <td>Notes {{event.notes}}</td><br>
+<div *ngIf="selectedEvent">
+ <img [src] = "selectedEvent.comedian.imageUrl">
+ <td>{{selectedEvent.comedian.firstName + " " + selectedEvent.comedian.lastName }}</td><br>
+ <td>Venue {{selectedEvent.venue.name}}</td><br>
+ <td>Date of show {{selectedEvent.performanceDate}}</td><br>
+ <td>Ticket Price ${{selectedEvent.ticketPrice}}</td><br>
+ <td>Notes {{selectedEvent.notes}}</td><br>
  <button (click)=displayTable()>Back Home</button>
 </div>

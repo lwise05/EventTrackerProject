@@ -11,38 +11,42 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
-
 @Entity
 public class Venue {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String name;
-	
+
 	@Column(name = "image_url")
 	private String imageUrl;
-	
+
 	private String street;
-	
+
 	private String street2;
-	
+
 	private String city;
-	
+
 	private String state;
-	
+
 	@Column(name = "postal_code")
 	private String postalCode;
-	
+
 	private String country;
-	
+
 	@JsonIgnore
-	@OneToMany(mappedBy ="venue")
+	@OneToMany(mappedBy = "venue")
 	private List<ComedyEvent> events;
 
 	public Venue() {
 		super();
+	}
+
+	public Venue(int id) {
+		super();
+		this.id = id;
 	}
 
 	public int getId() {
@@ -117,7 +121,6 @@ public class Venue {
 		this.country = country;
 	}
 
-	
 	public List<ComedyEvent> getEvents() {
 		return events;
 	}
@@ -132,8 +135,5 @@ public class Venue {
 				+ street2 + ", city=" + city + ", state=" + state + ", postalCode=" + postalCode + ", country="
 				+ country + "]";
 	}
-	
-	
-	
-	
+
 }

@@ -6,15 +6,17 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.comedyevent.entities.Comedian;
 import com.skilldistillery.comedyevent.entities.ComedyEvent;
+import com.skilldistillery.comedyevent.entities.Venue;
 import com.skilldistillery.comedyevent.repositories.ComedyEventRepository;
 
 @Service
-public class ComedyEventServiceImpl implements ComedyEventService{
+public class ComedyEventServiceImpl implements ComedyEventService {
 
 	@Autowired
 	private ComedyEventRepository comedyRepo;
-	
+
 	@Override
 	public List<ComedyEvent> findAll() {
 		return comedyRepo.findAll();
@@ -24,7 +26,7 @@ public class ComedyEventServiceImpl implements ComedyEventService{
 	public ComedyEvent findById(int id) {
 		Optional<ComedyEvent> eventOpt = comedyRepo.findById(id);
 		ComedyEvent event = null;
-		if(eventOpt.isPresent()) {
+		if (eventOpt.isPresent()) {
 			event = eventOpt.get();
 		}
 		return event;
@@ -32,15 +34,24 @@ public class ComedyEventServiceImpl implements ComedyEventService{
 
 	@Override
 	public ComedyEvent create(ComedyEvent event) {
-		return comedyRepo.saveAndFlush(event);
+		// see if comedian exists
+		// if it does reassign it using event.setComedian
+		// if it doesn't saveAndFlush the new comedian then
+//		event.setComedian(new Comedian(1));
+		// see if venue exists
+		// if it does reassign it using venue.setComedian
+		// if it doesn't saveAndFlush the new venue then
+//		event.setVenue(new Venue(1));
+		comedyRepo.saveAndFlush(event);
+		return event;
 	}
 
 	@Override
 	public ComedyEvent update(int id, ComedyEvent event) {
 		Optional<ComedyEvent> eventOpt = comedyRepo.findById(id);
 		ComedyEvent updatedEvent = null;
-		
-		if(eventOpt.isPresent()) {
+
+		if (eventOpt.isPresent()) {
 			updatedEvent = eventOpt.get();
 			updatedEvent.setPerformanceDate(event.getPerformanceDate());
 			updatedEvent.setRating(event.getRating());
@@ -50,7 +61,7 @@ public class ComedyEventServiceImpl implements ComedyEventService{
 			updatedEvent.setComedian(event.getComedian());
 			comedyRepo.saveAndFlush(updatedEvent);
 		}
-		
+
 		return updatedEvent;
 	}
 
@@ -58,7 +69,7 @@ public class ComedyEventServiceImpl implements ComedyEventService{
 	public boolean deletedById(int id) {
 		boolean deleted = false;
 		Optional<ComedyEvent> eventOpt = comedyRepo.findById(id);
-		if(eventOpt.isPresent()) {
+		if (eventOpt.isPresent()) {
 			comedyRepo.delete(eventOpt.get());
 			deleted = true;
 		}
@@ -67,7 +78,8 @@ public class ComedyEventServiceImpl implements ComedyEventService{
 
 	@Override
 	public List<ComedyEvent> findByComedian(String name) {
-		List<ComedyEvent> events = comedyRepo.findByComedian_FirstNameContainingOrComedian_LastNameContaining(name, name);
+		List<ComedyEvent> events = comedyRepo.findByComedian_FirstNameContainingOrComedian_LastNameContaining(name,
+				name);
 		return events;
 	}
 

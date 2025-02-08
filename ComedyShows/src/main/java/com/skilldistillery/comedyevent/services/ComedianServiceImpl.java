@@ -33,6 +33,9 @@ public class ComedianServiceImpl implements ComedianService{
 
 	@Override
 	public Comedian create(Comedian comedian) {
+		if(comedian.getCategory()==null) {
+			
+		}
 		return comedianRepo.saveAndFlush(comedian);
 	}
 

@@ -50,7 +50,7 @@ public class ComedyEventController {
 	public ComedyEvent createEvent(@RequestBody ComedyEvent event, HttpServletResponse res, HttpServletRequest requ) {
 		
 		try {
-			eventService.create(event);
+			event = eventService.create(event);
 			res.setStatus(HttpServletResponse.SC_CREATED);
 			res.setHeader("Location", requ.getRequestURL().append("/").append(event.getId()).toString());
 		} catch (Exception e) {

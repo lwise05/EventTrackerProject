@@ -11,9 +11,7 @@ export class ComedyEventService {
 
   private url = environment.baseUrl + 'api/comedyEvents';
 
-  constructor(
-    private http: HttpClient,
-  ) { }
+  constructor(private http: HttpClient,) { }
 
   index(): Observable<ComedyEvent[]> {
     return this.http.get<ComedyEvent[]>(this.url).pipe(
@@ -26,6 +24,28 @@ export class ComedyEventService {
     );
   }
 
+  create (comedyEvent : ComedyEvent): Observable<ComedyEvent> {
+
+     return this.http.post<ComedyEvent>(this.url, comedyEvent).pipe(
+       catchError((error:any) => {
+         console.log(error);
+         return throwError(
+           () => new Error ('ComedyEventService.create(): error creating comedyEvent' + error.message)
+         );
+       })
+     );
+   }
+
+   destroy(id : number): Observable<void>{
+    return this.http.delete<void>(this.url +'/' + id).pipe(
+      catchError((error:any) => {
+        console.log(error);
+        return throwError(
+          () => new Error ('ComedyEventService.destroy(): error deleting comedyEvent' + error.message)
+        );
+      })
+    );
+  } 
 
 
 }

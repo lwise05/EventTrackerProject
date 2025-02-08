@@ -10,5 +10,7 @@ import com.skilldistillery.comedyevent.entities.ComedyEvent;
 public interface ComedianRepository extends JpaRepository<Comedian, Integer>  {
 	List<Comedian> findByFirstNameContainingOrLastNameContaining (String first, String last);
 	
+	
+	
 	List<Comedian> findByCategory_NameContaining (String name);
 }
