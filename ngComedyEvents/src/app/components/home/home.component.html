@@ -24,13 +24,30 @@
 </div>
 
 <!-- Create Comedy Event Form -->
-<form>
+<form *ngIf="!selectedEvent">
   <label for= "comedyEvent.comedian">Comedian</label>
   <select name= "comedyEvent.comedian.id" [(ngModel)]="newEvent.comedian">
+  <!-- <option>Add new comedian</option> -->
   <option *ngFor="let comedian of comedians" value="{{comedian.id}}">{{comedian.firstName + " " + comedian.lastName}}</option>
-  <!-- <input type= "text" name= "comedian.firstName" placeholder= "Comedian's First Name" [(ngModel)]="newComedian.firstName">
-  <input type= "text" name= "comedian.lastName" placeholder= "Comedian's Last Name" [(ngModel)]="newComedian.lastName"><br> -->
   </select>
+  <button (click)="newComedian">Add new comedian</button>
+
+  <!-- Create Comedian -->
+<form *ngIf="newComedian">
+<label for="comedian.firstName">First Name</label>
+<input type="text" name="comedian.firstName" [(ngModel)]="newComedian.firstName">
+
+<label for="comedian.lastName">Last Name</label>
+<input type="text" name="comedian.lastName" [(ngModel)]="newComedian.lastName">
+
+<label for= "comedian.category">Category</label>
+  <select name= "comedian.category.id" [(ngModel)]="newComedian.category.id">
+    <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
+  </select>
+<button (click)="createComedian(newComedian)">Add Comedian</button>
+</form>
+
+
 
   <label for= "venue.name">Venue</label>
   <select name= "comedyEvent.venue.id" [(ngModel)]="newEvent.venue">
@@ -48,6 +65,9 @@
 <button (click)=createEvent(newEvent)>Add New Comedy Show </button>
 </form>
 
+
+
+
 <!-- Display Comedy Event -->
 <div *ngIf="selectedEvent">
  <img [src] = "selectedEvent.comedian.imageUrl">
@@ -64,8 +84,8 @@
 <!-- Edit Comedy Event -->
 <div *ngIf="editEvent">
 <form>
-  <label for="comedyEvent.venue.name">Venue</label>
-  <select name= "comedyEvent.venue.id" [(ngModel)]="editEvent.venue">
+  <label for="comedyEvent.venue.id">Venue</label>
+  <select name= "comedyEvent.venue.id" [(ngModel)]="editEvent.venue.id">
   <option *ngFor="let venue of venues" value="{{venue.id}}">{{venue.name}}</option>
   </select>
 

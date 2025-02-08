@@ -1,3 +1,4 @@
+import { CategoryService } from './../../services/category.service';
 import { Component, OnInit } from '@angular/core';
 import { ComedyEventService } from '../../services/comedy-event.service';
 import { CommonModule } from '@angular/common';
@@ -7,6 +8,7 @@ import { Comedian } from '../../models/comedian';
 import { Venue } from '../../models/venue';
 import { ComedianService } from '../../services/comedian.service';
 import { VenueService } from '../../services/venue.service';
+import { Category } from '../../models/category';
 
 @Component({
   selector: 'app-home',
@@ -28,9 +30,13 @@ export class HomeComponent implements OnInit{
   venues: Venue [] = [];
   newVenue: Venue = new Venue();
 
+  categories: Category [] = [];
+
+
   constructor(private comedyEventService :ComedyEventService,
     private comedianService :ComedianService,
     private venueService :VenueService,
+    private categoryService :CategoryService,
   ) {
 
   }
@@ -39,6 +45,7 @@ export class HomeComponent implements OnInit{
     this.loadEvents();
     this.loadComedians();
     this.loadVenues();
+    this.loadCategories()
    }
 
 
@@ -89,8 +96,10 @@ this.comedyEventService.destroy(id).subscribe({
 }
 
 updateEvent(comedyEvent : ComedyEvent): void {
+  console.log(comedyEvent);
   this.comedyEventService.update(comedyEvent).subscribe({
     next: (eventToUpdate) => {
+      console.log(eventToUpdate);
       this.loadEvents();
       this.selectedEvent = eventToUpdate;
       this.editEvent = null;
@@ -120,6 +129,21 @@ loadComedians(): void {
   });
   }
 
+  createComedian(comedian : Comedian){
+    this.comedianService.create(comedian).subscribe({
+      next: (newComedian) => {
+        this.loadEvents();
+        alert("Comedian added to list")
+        this.loadComedians();
+        this.newComedian = new Comedian();
+      },
+      error: (failure) => {
+        console.error('HomeComponenet.createComedian:fail to create new comedian');
+        console.error(failure);
+      }
+    });
+  }
+
 //VENUES
 loadVenues(): void {
   this.venueService.index().subscribe({
@@ -132,6 +156,22 @@ loadVenues(): void {
     }
   });
   }
+
+//CATEGORIES
+loadCategories(): void {
+  this.categoryService.index().subscribe({
+    next: (categoryList) => {
+      this.categories = categoryList;
+    },
+    error: (failure) => {
+      console.error('HomeComponenet.loadCategories:fail to load category list');
+      console.error(failure);
+    }
+  });
+  }
+
+
+
 
 
 }

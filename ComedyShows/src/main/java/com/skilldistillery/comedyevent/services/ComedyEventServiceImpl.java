@@ -10,12 +10,16 @@ import com.skilldistillery.comedyevent.entities.Comedian;
 import com.skilldistillery.comedyevent.entities.ComedyEvent;
 import com.skilldistillery.comedyevent.entities.Venue;
 import com.skilldistillery.comedyevent.repositories.ComedyEventRepository;
+import com.skilldistillery.comedyevent.repositories.VenueRepository;
 
 @Service
 public class ComedyEventServiceImpl implements ComedyEventService {
 
 	@Autowired
 	private ComedyEventRepository comedyRepo;
+	
+	@Autowired
+	private VenueRepository venueRepo;
 
 	@Override
 	public List<ComedyEvent> findAll() {
@@ -57,7 +61,7 @@ public class ComedyEventServiceImpl implements ComedyEventService {
 			updatedEvent.setRating(event.getRating());
 			updatedEvent.setTicketPrice(event.getTicketPrice());
 			updatedEvent.setNotes(event.getNotes());
-			updatedEvent.setVenue(event.getVenue());
+			updatedEvent.setVenue(venueRepo.findById(event.getVenue().getId()).orElse(null));
 			updatedEvent.setComedian(event.getComedian());
 			comedyRepo.saveAndFlush(updatedEvent);
 		}
