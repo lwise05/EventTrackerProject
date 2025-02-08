@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit{
   comedyEvents: ComedyEvent [] = [];
   selectedEvent: ComedyEvent | null = null;
   newEvent: ComedyEvent = new ComedyEvent();
+  editEvent: ComedyEvent | null = null //To clear edit form
 
   comedians: Comedian [] = [];
   newComedian: Comedian = new Comedian();
@@ -85,6 +86,24 @@ this.comedyEventService.destroy(id).subscribe({
     console.error(failure);
   }
 });
+}
+
+updateEvent(comedyEvent : ComedyEvent): void {
+  this.comedyEventService.update(comedyEvent).subscribe({
+    next: (eventToUpdate) => {
+      this.loadEvents();
+      this.selectedEvent = eventToUpdate;
+      this.editEvent = null;
+    },
+    error: (failure) => {
+      console.error('HomeComponenet.updateEvent:fail to update comedyEvent');
+      console.error(failure);
+    }
+  });
+  }
+
+setEditEvent(editEvent : ComedyEvent){
+  this.editEvent = Object.assign({}, this.selectedEvent);
 }
 
 

@@ -45,7 +45,18 @@ export class ComedyEventService {
         );
       })
     );
-  } 
+  }
+
+  update(comedyEvent: ComedyEvent): Observable<ComedyEvent> {
+      return this.http.put<ComedyEvent>(this.url +'/' + comedyEvent.id, comedyEvent).pipe(
+        catchError((error:any) => {
+          console.log(error);
+          return throwError(
+            () => new Error ('ComedyEventService.update(): error updating comedyEvent' + error.message)
+          );
+        })
+      );
+    }
 
 
 }
