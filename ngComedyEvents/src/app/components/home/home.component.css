@@ -1,0 +1,250 @@
+
+body {
+  background-image: url("https://t3.ftcdn.net/jpg/06/28/67/78/240_F_628677873_SQg6Pf3tls6P490E2S3UPUSwaqg0PRz3.jpg");
+  background-color: #9a928a;
+
+
+}
+
+.header{
+  background-color:#a4ae6a;
+  width: 300px;
+  border: 15px solid rgb(0, 0, 0);
+  padding: 50px;
+  margin: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-size:x-large;
+  font-weight: bold;
+}
+
+.carousel {
+  width: 100%; /* Width of carousel */
+  height: 166px; /* Height of carousel */
+
+}
+
+.card-container {
+  width: 100%; /* Width of card container */
+  display: flex; /* Set inline elements */
+  overflow-x: auto; /* Set overflow in horizontal scroll */
+  overflow-y: hidden; /* Hidden overflow in vertical scroll */
+  scroll-snap-type: x mandatory; /* Force the scroll to snap to the start of a scroll-snap area */
+  gap: 8px; /* Set gap between cards */
+  width: calc(100% - 16px);
+  margin: 8px;
+  flex: 0 0 calc(100% - 16px);
+}
+
+.card {
+  min-width: 250px; /* Set min width of card */
+  height: 150px; /* Set height of card */
+  scroll-snap-align: start; /* Set the element focus position in scroll container */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background:#ffffff;
+  border: 5px black;
+  color: black;
+  border-radius: 15px;
+}
+
+.card:hover {
+  background: #c7c0c0; /* Set background color when hover */
+
+}
+
+.comedianTable th{
+  background-color:#be9c40;
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-size:x-large;
+  font-weight: bold;
+  font: black;
+}
+
+.venueTable th{
+  background-color:#e1bce4;
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-size:x-large;
+  font-weight: bold;
+  font: black;
+}
+
+.table{
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  align-content: center;
+  border:solid black 1px;
+  border-radius:20px;
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-size:x-large;
+  font-weight: bold;
+  font: black;
+}
+
+
+
+th{
+  background-color:#6a8bae;
+  border-left:solid black 1px;
+  border-top:solid black 1px;
+}
+
+td {
+  background-color: #ffffff;
+  border-left:solid black 1px;
+  border-top:solid black 1px;
+}
+td:first-child, th:first-child {
+  border-left: none;
+}
+
+
+.comedianInfo{
+  background-color:#be9c40;
+  width: 300px;
+  border: 15px solid rgb(0, 0, 0);
+  padding: 50px;
+  margin: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-size:x-large;
+  font-weight: bold;
+}
+
+.comedian img{
+  width: 500px;
+    height: 500px;
+    border-radius: 8px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.venue{
+  background-color:#e1bce4;
+  width: 300px;
+  border: 15px solid rgb(0, 0, 0);
+  padding: 50px;
+  margin: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-size:x-large;
+  font-weight: bold;
+}
+
+.venueInfo img{
+  width: 500px;
+    height: 500px;
+    border-radius: 8px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.createForm{
+  background-color:#68946b;
+  width: 300px;
+  border: 15px solid rgb(0, 0, 0);
+  padding: 50px;
+  margin: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-size:x-large;
+  font-weight: bold;
+}
+
+
+.comedyEvent img{
+  width: 500px;
+    height: 500px;
+    border-radius: 8px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.eventInfo h3{
+ font-weight: bold;
+}
+
+.eventInfo{
+  background-color:#6a8bae;
+  width: 300px;
+  border: 15px solid rgb(0, 0, 0);
+  padding: 50px;
+  margin: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-size:x-large;
+  font-weight: bold;
+}
+
+.editEventForm{
+  background-color:#a581a4;
+  width: 300px;
+  border: 15px solid rgb(0, 0, 0);
+  padding: 50px;
+  margin: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-size:x-large;
+  font-weight: bold;
+}
+
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+
+button{
+  margin-right: 10px;
+}
+
+button:hover {
+  border: 3px solid black;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.deleteButton{
+  background-color:#c91d1d;
+  box-shadow: 0 12px 16px 0rgba(0,0,0,0.24), 0 17px 50px 0 rgba(127, 11, 11, 0.19);
+  margin-left: 10px;
+}

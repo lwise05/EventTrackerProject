@@ -26,5 +26,16 @@ export class VenueService {
     }
 
 
+     create (venue : Venue): Observable<Venue> {
+    
+         return this.http.post<Venue>(this.url, venue).pipe(
+           catchError((error:any) => {
+             console.log(error);
+             return throwError(
+               () => new Error ('VenueService.create(): error creating venue' + error.message)
+             );
+           })
+         );
+       }
 
 }

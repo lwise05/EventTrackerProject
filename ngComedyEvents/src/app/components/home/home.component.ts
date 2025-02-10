@@ -1,3 +1,4 @@
+import { NgbCarouselCtx, ngbCarouselTransitionIn, ngbCarouselTransitionOut } from './../../../../node_modules/@ng-bootstrap/ng-bootstrap/carousel/carousel-transition.d';
 import { CategoryService } from './../../services/category.service';
 import { Component, OnInit } from '@angular/core';
 import { ComedyEventService } from '../../services/comedy-event.service';
@@ -13,9 +14,10 @@ import { Category } from '../../models/category';
 @Component({
   selector: 'app-home',
     //Add any pipes in imports
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
+
 })
 export class HomeComponent implements OnInit{
 
@@ -26,9 +28,11 @@ export class HomeComponent implements OnInit{
 
   comedians: Comedian [] = [];
   newComedian: Comedian = new Comedian();
+  selectedComedian: Comedian | null = null;
 
   venues: Venue [] = [];
   newVenue: Venue = new Venue();
+  selectedVenue: Venue | null = null;
 
   categories: Category [] = [];
 
@@ -37,6 +41,7 @@ export class HomeComponent implements OnInit{
     private comedianService :ComedianService,
     private venueService :VenueService,
     private categoryService :CategoryService,
+
   ) {
 
   }
@@ -68,6 +73,8 @@ export class HomeComponent implements OnInit{
 
   displayTable() {
       this.selectedEvent = null;
+      this.selectedComedian = null;
+      this.selectedVenue = null;
     }
 
   createEvent(comedyEvent : ComedyEvent){
@@ -129,6 +136,10 @@ loadComedians(): void {
   });
   }
 
+  displayComedian(comedian: Comedian) {
+    this.selectedComedian = comedian;
+  }
+
   createComedian(comedian : Comedian){
     this.comedianService.create(comedian).subscribe({
       next: (newComedian) => {
@@ -144,6 +155,20 @@ loadComedians(): void {
     });
   }
 
+  deleteComedian(id : number){
+    this.comedianService.destroy(id).subscribe({
+      next:(comedianToDelete) => {
+        this.loadEvents();
+        this.loadComedians();
+      },
+      error:(failure) => {
+        console.error('HomeComponenet.deleteComedian:fail to delete comedian');
+        console.error(failure);
+      }
+    });
+    }
+
+
 //VENUES
 loadVenues(): void {
   this.venueService.index().subscribe({
@@ -155,6 +180,27 @@ loadVenues(): void {
       console.error(failure);
     }
   });
+  }
+
+  displayVenue(venue: Venue) {
+    this.selectedVenue = venue;
+  }
+
+
+  createVenue(venue : Venue){
+    this.venueService.create(venue).subscribe({
+      next: (newVenue) => {
+        this.loadEvents();
+        alert("Venue added to list")
+        this.loadComedians();
+        this.loadVenues();
+        this.newVenue = new Venue();
+      },
+      error: (failure) => {
+        console.error('HomeComponenet.createVenue:fail to create new venue');
+        console.error(failure);
+      }
+    });
   }
 
 //CATEGORIES

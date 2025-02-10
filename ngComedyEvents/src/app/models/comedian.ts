@@ -8,6 +8,7 @@ export class Comedian {
   notes: string;
   category: Category;
 
+
 constructor(
   id: number = 0,
   firstName: string = '',
@@ -15,6 +16,7 @@ constructor(
   imageUrl: string = '',
   notes: string = '',
   category: Category = new Category(),
+  
 ){
 this.id = id;
 this.firstName = firstName;

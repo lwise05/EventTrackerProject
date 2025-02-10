@@ -36,5 +36,16 @@ create (comedian : Comedian): Observable<Comedian> {
      );
    }
 
+   destroy(id : number): Observable<void>{
+    return this.http.delete<void>(this.url +'/' + id).pipe(
+      catchError((error:any) => {
+        console.log(error);
+        return throwError(
+          () => new Error ('ComedyEventService.destroy(): error deleting comedyEvent' + error.message)
+        );
+      })
+    );
+  }
+
 
 }

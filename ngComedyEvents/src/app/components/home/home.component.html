@@ -1,36 +1,60 @@
-<h1>Comedy Show Tracker</h1>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<body>
+<div class="header">
+<h1>The Comedy Club</h1>
+</div>
+<div class="topImage">
+<nav>
+<div class="links">
+  <ul>
+    <ol><button (click)="displayTable()">Home</button></ol>
+    <ol><button (click)="loadComedians()">Comedians</button></ol>
+  </ul>
+</div>
+
+</nav>
+
+ <!-- Comedian Carousel -->
+ <div class="view_carousel">
+  <div class="card-container">
+    <div  *ngFor="let comedian of comedians">
+      <img [src] = "comedian.imageUrl" class="card" (click)="displayComedian(comedian)" (click)="displayTable()">
+      <p>{{comedian.firstName + " " +comedian.lastName}}</p>
+    </div>
+  </div>
+</div>
+</div>
 
 <!-- Event Table -->
-<div *ngIf="!selectedEvent">
+<div *ngIf="!selectedEvent && !selectedComedian && !selectedVenue">
 <table class="table table-stiped table-hover">
-<thead class="table table-dark">
+<thead>
 <tr>
-  <th></th>
-  <th>Comedian</th>
-  <th>Date</th>
-  <th></th>
+  <th colspan="4">Comedy Shows</th>
 </tr>
 </thead>
 <tbody>
 <tr *ngFor= "let comedyEvent of comedyEvents">
   <td (click)="displayEvent(comedyEvent)"><img [src] = "comedyEvent.comedian.imageUrl" class="img-fluid rounded-circle mb-2"
-            style = "width: 80px; height: 80px"  ></td>
+            style = "width: 80px; height: 80px"  alt="Image of {{comedyEvent.comedian.firstName}} {{comedyEvent.comedian.lastName}}"></td>
   <td (click)="displayEvent(comedyEvent)">{{comedyEvent.comedian.firstName + " " + comedyEvent.comedian.lastName }}</td>
   <td>{{comedyEvent.performanceDate}}</td>
-  <td><button class="btn btn-danger"(click)="deleteEvent(comedyEvent.id)">X</button></td>
+  <td><button class="btn"(click)="deleteEvent(comedyEvent.id)"><i class="material-icons">delete</i></button></td>
 </tr>
 </tbody>
 </table>
 </div>
 
+
 <!-- Create Comedy Event Form -->
-<form *ngIf="!selectedEvent">
+ <div class="createForm" *ngIf="!selectedEvent &&  !selectedComedian && !selectedVenue">
+<form>
+  <h3>*Add a show*</h3>
   <label for= "comedyEvent.comedian">Comedian</label>
   <select name= "comedyEvent.comedian.id" [(ngModel)]="newEvent.comedian">
   <!-- <option>Add new comedian</option> -->
   <option *ngFor="let comedian of comedians" value="{{comedian.id}}">{{comedian.firstName + " " + comedian.lastName}}</option>
   </select>
-  <button (click)="newComedian">Add new comedian</button>
 
   <!-- Create Comedian -->
 <form *ngIf="newComedian">
@@ -44,15 +68,44 @@
   <select name= "comedian.category.id" [(ngModel)]="newComedian.category.id">
     <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
   </select>
-<button (click)="createComedian(newComedian)">Add Comedian</button>
+
+<label for="comedian.imageUrl">Image</label>
+<input type="text" name="comedian.imageUrl" [(ngModel)]="newComedian.imageUrl">
+
+Notes<br><textarea name="comedian.notes" placeholder="Info about comedian"  [(ngModel)]="newComedian.notes"></textarea><br>
+
+<button class=button (click)="createComedian(newComedian)">Add Comedian</button>
 </form>
-
-
 
   <label for= "venue.name">Venue</label>
   <select name= "comedyEvent.venue.id" [(ngModel)]="newEvent.venue">
   <option *ngFor="let venue of venues" value="{{venue.id}}">{{venue.name}}</option>
   </select>
+
+    <!-- Create Venue -->
+<form>
+  <label for="venue.name">Venue Name</label>
+  <input type="text" name="venue.name" [(ngModel)]="newVenue.name">
+
+  <label for="venue.street">Venue Street Address</label>
+  <input type="text" name="venue.street" [(ngModel)]="newVenue.street">
+
+  <label for="venue.street2">Venue Street 2</label>
+  <input type="text" name="venue.street2" [(ngModel)]="newVenue.street2">
+
+  <label for="venue.city">Venue City</label>
+  <input type="text" name="venue.city" [(ngModel)]="newVenue.city">
+
+  <label for="venue.state">Venue State</label>
+  <input type="text" name="venue.state" [(ngModel)]="newVenue.state">
+
+  <label for="venue.country">Venue Country</label>
+  <input type="text" name="venue.country" [(ngModel)]="newVenue.country">
+
+  <label for="venue.imageUrl">Venue Image</label>
+  <input type="text" name="venue.imageUrl" [(ngModel)]="newVenue.imageUrl">
+<button class=button (click)="createVenue(newVenue)">Add Venue</button>
+</form>
 
   <label for= "comedyEvent.rating">Rating</label>
   <select name= "comedyEvent.rating" [(ngModel)]="newEvent.rating">
@@ -62,43 +115,124 @@
   <option value="4">4</option>
   <option value="5">5</option>
   </select>
-<button (click)=createEvent(newEvent)>Add New Comedy Show </button>
-</form>
 
+  <label for="comedyEvent.ticketPrice">Comedy Show Ticket Price</label><br>
+  $<input type="number" name="comedyEvent.ticketPrice" [(ngModel)]="newEvent.ticketPrice">
+
+  <label for="comedyEvent.notes">Comedy Show Notes</label><br>
+  <input type="text" name="comedyEvent.notes" placeholder="Notes about the show" [(ngModel)]="newEvent.notes">
+
+  <label for="comedyEvent.performanceDate">Date of Show</label><br>
+  <input type="date" name="comedyEvent.performanceDate" [(ngModel)]="newEvent.performanceDate">
+
+<button  class=button (click)=createEvent(newEvent)>Add New Comedy Show </button>
+</form>
+</div>
 
 
 
 <!-- Display Comedy Event -->
-<div *ngIf="selectedEvent">
+<div class="comedyEvent" *ngIf="selectedEvent && !editEvent">
  <img [src] = "selectedEvent.comedian.imageUrl">
- <td>Comedian: {{selectedEvent.comedian.firstName + " " + selectedEvent.comedian.lastName }}</td><br>
- <td>Venue: {{selectedEvent.venue.name}}</td><br>
- <td>Date of show: {{selectedEvent.performanceDate}}</td><br>
- <td>Ticket Price: ${{selectedEvent.ticketPrice}}</td><br>
- <td>Notes: {{selectedEvent.notes}}</td><br>
- <button (click)=displayTable()>Back</button>
- <button class="btn btn-danger"(click)="deleteEvent(selectedEvent.id)" (click)="displayTable()">Delete Event</button>
- <button (click)="setEditEvent(selectedEvent)">Update Event</button>
+ <div class="eventInfo">
+ <h3>{{selectedEvent.comedian.firstName + " " + selectedEvent.comedian.lastName }}</h3><br>
+ <p>Venue: {{selectedEvent.venue.name}}</p><br>
+ <p>Date of show: {{selectedEvent.performanceDate}}</p><br>
+ <p>Ticket Price: ${{selectedEvent.ticketPrice}}</p><br>
+ <p>Notes: {{selectedEvent.notes}}</p><br>
+ <button class=button (click)=displayTable()>Back</button>
+ <button class=button (click)="setEditEvent(selectedEvent)">Update Event</button>
+ <button class="deleteButton"(click)="deleteEvent(selectedEvent.id)" (click)="displayTable()">Delete Event</button>
+
+ </div>
 </div>
 
 <!-- Edit Comedy Event -->
-<div *ngIf="editEvent">
+<div class="editEventForm" *ngIf="editEvent">
 <form>
+  <h3>*Update*</h3>
   <label for="comedyEvent.venue.id">Venue</label>
   <select name= "comedyEvent.venue.id" [(ngModel)]="editEvent.venue.id">
   <option *ngFor="let venue of venues" value="{{venue.id}}">{{venue.name}}</option>
   </select>
 
-  <label for="performanceDate">Date of Show</label>
-  <input type="date" name="performanceDate" [(ngModel)]="editEvent.performanceDate">
+  <label for="performanceDate">Date of Show</label><br>
+  <input type="date" name="performanceDate" [(ngModel)]="editEvent.performanceDate"><br>
 
-  <label for="ticketPrice">Ticket Price</label>
-  <input type="number" name="ticketPrice" [(ngModel)]="editEvent.ticketPrice">
+  <label for="ticketPrice">Ticket Price</label><br>
+  $<input type="number" name="ticketPrice" [(ngModel)]="editEvent.ticketPrice"><br>
 
-  <label for="notes">Notes</label>
-  <input type="text" name="notes" [(ngModel)]="editEvent.notes">
-<button (click)="updateEvent(editEvent)" (click)="editEvent = null">Save</button>
-<button (click)="editEvent = null">Cancel</button>
+  <label for="notes">Notes</label><br>
+  <textarea name="notes" [(ngModel)]="editEvent.notes"></textarea><br>
+<button class=button (click)="updateEvent(editEvent)" (click)="editEvent = null">Save</button>
+<button class=button (click)="editEvent = null">Cancel</button>
 </form>
 </div>
 
+<!-- Comedian Table -->
+<div class="comedianTable" *ngIf="!selectedEvent && !selectedComedian && ! selectedVenue">
+  <table class="table table-stiped table-hover">
+  <thead class="table table-dark">
+  <tr>
+    <th>Comedians</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor= "let comedian of comedians" (click)="displayComedian(comedian)">
+    <td><img [src] = "comedian.imageUrl" class="img-fluid rounded-circle mb-2"
+              style = "width: 80px; height: 80px"  >  {{comedian.firstName + " " + comedian.lastName }}</td>
+  </tr>
+  </tbody>
+  </table>
+  </div>
+
+  <!-- Display Comedian -->
+<div class="comedian" *ngIf="selectedComedian">
+  <img [src] = "selectedComedian.imageUrl" alt="Image of {{selectedComedian.firstName}} {{selectedComedian.lastName}}">
+  <div class="comedianInfo">
+  <p>{{selectedComedian.firstName + " " + selectedComedian.lastName}}</p><br>
+  <p>Catetory: {{selectedComedian.category.name}}</p><br>
+  <p>Notes: {{selectedComedian.notes}}</p><br>
+  <button (click)=displayTable()>Back</button>
+  <button class="deleteButton"(click)="deleteComedian(selectedComedian.id)" (click)="displayTable()">Delete Comedian</button>
+ </div>
+</div>
+
+
+<!-- Venue Table -->
+<div class="venueTable" *ngIf="!selectedEvent && !selectedComedian && !selectedVenue">
+  <table class="table table-stiped table-hover">
+  <thead class="table table-dark">
+  <tr>
+    <th colspan="2">Venues</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor= "let venue of venues" (click)="displayVenue(venue)" >
+    <td><img [src] = "venue.imageUrl" class="img-fluid rounded-circle mb-2"
+              style = "width: 80px; height: 80px" ></td>
+    <td>{{venue.name}}</td>
+  </tr>
+  </tbody>
+  </table>
+  </div>
+
+  <!-- Display Venue -->
+<div class="venueInfo" *ngIf="selectedVenue">
+  <img [src] = "selectedVenue.imageUrl">
+  <div class="venue">
+  <h3>{{selectedVenue.name}}</h3><br>
+  <p>Street: {{selectedVenue.street}}</p><br>
+  <p>Street 2: {{selectedVenue.street2}}</p><br>
+  <p>City: {{selectedVenue.city}}</p><br>
+  <p>State: {{selectedVenue.state}}</p><br>
+  <p>Zip: {{selectedVenue.postalCode}}</p><br>
+  <p>Country: {{selectedVenue.country}}</p><br>
+  <button class=button (click)=displayTable()>Back</button>
+
+
+  </div>
+ </div>
+
+
+</body>
