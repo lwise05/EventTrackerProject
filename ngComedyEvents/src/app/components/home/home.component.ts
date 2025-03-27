@@ -25,14 +25,17 @@ export class HomeComponent implements OnInit{
   selectedEvent: ComedyEvent | null = null;
   newEvent: ComedyEvent = new ComedyEvent();
   editEvent: ComedyEvent | null = null //To clear edit form
+  showNewEventForm: any;
 
   comedians: Comedian [] = [];
   newComedian: Comedian = new Comedian();
   selectedComedian: Comedian | null = null;
+  showNewComedianForm: any;
 
   venues: Venue [] = [];
   newVenue: Venue = new Venue();
   selectedVenue: Venue | null = null;
+  showNewVenueForm: any;
 
   categories: Category [] = [];
 
@@ -88,6 +91,14 @@ export class HomeComponent implements OnInit{
         console.error(failure);
       }
     });
+  }
+
+  toggleNewEvent(){
+    this.showNewEventForm = true;
+  }
+
+  cancelNewEvent(){
+    this.showNewEventForm = false;
   }
 
 deleteEvent(id : number){
@@ -155,6 +166,14 @@ loadComedians(): void {
     });
   }
 
+  toggleNewComedian(){
+    this.showNewComedianForm = true;
+  }
+
+  cancelNewComeidan() {
+    this.showNewComedianForm = false;
+  }
+
   deleteComedian(id : number){
     this.comedianService.destroy(id).subscribe({
       next:(comedianToDelete) => {
@@ -186,6 +205,12 @@ loadVenues(): void {
     this.selectedVenue = venue;
   }
 
+  toggleNewVenue(){
+    this.showNewVenueForm = true;
+  }
+  cancelNewVenue() {
+    this.showNewVenueForm = false;
+  }
 
   createVenue(venue : Venue){
     this.venueService.create(venue).subscribe({

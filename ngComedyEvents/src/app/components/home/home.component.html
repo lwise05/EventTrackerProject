@@ -18,7 +18,7 @@
  <div class="view_carousel">
   <div class="card-container">
     <div  *ngFor="let comedian of comedians">
-      <img [src] = "comedian.imageUrl" class="card" (click)="displayComedian(comedian)" (click)="displayTable()">
+      <img [src] = "comedian.imageUrl" class="card" (click)="displayComedian(comedian)" >
       <p>{{comedian.firstName + " " +comedian.lastName}}</p>
     </div>
   </div>
@@ -43,21 +43,23 @@
 </tr>
 </tbody>
 </table>
+<button *ngIf="!showNewEventForm" (click)="toggleNewEvent()">Add New Comedy Show to List</button>
 </div>
 
 
 <!-- Create Comedy Event Form -->
- <div class="createForm" *ngIf="!selectedEvent &&  !selectedComedian && !selectedVenue">
-<form>
+ <div class="createForm" *ngIf="!selectedEvent && !selectedComedian && !selectedVenue && showNewEventForm">
+<form *ngIf="showNewEventForm">
   <h3>*Add a show*</h3>
   <label for= "comedyEvent.comedian">Comedian</label>
   <select name= "comedyEvent.comedian.id" [(ngModel)]="newEvent.comedian">
   <!-- <option>Add new comedian</option> -->
   <option *ngFor="let comedian of comedians" value="{{comedian.id}}">{{comedian.firstName + " " + comedian.lastName}}</option>
   </select>
+  <button *ngIf="!showNewComedianForm" (click)="toggleNewComedian()">Add New Comedian</button>
 
   <!-- Create Comedian -->
-<form *ngIf="newComedian">
+<form *ngIf="newComedian && showNewComedianForm">
 <label for="comedian.firstName">First Name</label>
 <input type="text" name="comedian.firstName" [(ngModel)]="newComedian.firstName">
 
@@ -74,16 +76,17 @@
 
 Notes<br><textarea name="comedian.notes" placeholder="Info about comedian"  [(ngModel)]="newComedian.notes"></textarea><br>
 
-<button class=button (click)="createComedian(newComedian)">Add Comedian</button>
+<button class=button (click)="createComedian(newComedian)">Submit</button>
+<button *ngIf="showNewComedianForm" (click)="cancelNewComeidan()">Cancel</button>
 </form>
 
-  <label for= "venue.name">Venue</label>
+  <br><label for= "venue.name">Venue</label>
   <select name= "comedyEvent.venue.id" [(ngModel)]="newEvent.venue">
   <option *ngFor="let venue of venues" value="{{venue.id}}">{{venue.name}}</option>
   </select>
-
+  <button *ngIf="!showNewVenueForm" (click)="toggleNewVenue()">Add New Venue</button>
     <!-- Create Venue -->
-<form>
+<form *ngIf="showNewVenueForm">
   <label for="venue.name">Venue Name</label>
   <input type="text" name="venue.name" [(ngModel)]="newVenue.name">
 
@@ -104,10 +107,11 @@ Notes<br><textarea name="comedian.notes" placeholder="Info about comedian"  [(ng
 
   <label for="venue.imageUrl">Venue Image</label>
   <input type="text" name="venue.imageUrl" [(ngModel)]="newVenue.imageUrl">
-<button class=button (click)="createVenue(newVenue)">Add Venue</button>
+<button class=button (click)="createVenue(newVenue)">Submit</button>
+<button *ngIf="showNewVenueForm" (click)="cancelNewVenue()">Cancel</button>
 </form>
 
-  <label for= "comedyEvent.rating">Rating</label>
+  <br><label for= "comedyEvent.rating">Rating</label>
   <select name= "comedyEvent.rating" [(ngModel)]="newEvent.rating">
   <option value="1">1</option>
   <option value="2">2</option>
@@ -123,9 +127,10 @@ Notes<br><textarea name="comedian.notes" placeholder="Info about comedian"  [(ng
   <input type="text" name="comedyEvent.notes" placeholder="Notes about the show" [(ngModel)]="newEvent.notes">
 
   <label for="comedyEvent.performanceDate">Date of Show</label><br>
-  <input type="date" name="comedyEvent.performanceDate" [(ngModel)]="newEvent.performanceDate">
+  <input type="date" name="comedyEvent.performanceDate" [(ngModel)]="newEvent.performanceDate"><br>
 
-<button  class=button (click)=createEvent(newEvent)>Add New Comedy Show </button>
+<button  class=button (click)=createEvent(newEvent)>Submit </button>
+<button  class=button (click)=cancelNewEvent()>Cancel </button>
 </form>
 </div>
 
